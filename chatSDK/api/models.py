@@ -1,6 +1,10 @@
 from django.db import models
 from django.db.models.deletion import CASCADE
 from datetime import datetime
+from django.dispatch import receiver
+from django.db.models.signals import pre_save
+import json
+from llama_index import GPTSimpleVectorIndex, Document
 
 # Create your models here.
 
@@ -17,14 +21,28 @@ class Company(models.Model):
     class Meta:
         verbose_name_plural = "Companies"
 
-#https://stackoverflow.com/questions/1197674/actions-triggered-by-field-change-in-django
-    def set_state(self, newstate):
-        if self.state != newstate:
-            oldstate = self.state
-            self.state = newstate
-            if oldstate == 'S' and newstate == 'A':
-                self.started = datetime.now()
-                # create units, etc.
+
+@receiver(pre_save, sender=Company)
+def my_function(sender, instance, **kwargs):
+    # Check if the instance has been saved before
+    if instance.pk:
+        # Retrieve the original instance from the database
+        original_instance = Company.objects.get(pk=instance.pk)
+        # Check if the field you want to update has changed
+        if original_instance.sdk_doc != instance.sdk_doc:
+            # Perform your updates using the update() method
+            sdk_text = text = instance.sdk_doc.decode('utf-8')
+            document = Document(text=sdk_text)
+            index = GPTSimpleVectorIndex([])
+            index.insert(document)
+            index_str = index.save_to_string()
+            instance.index = json.dumps({'index': index_str})
+            Company.objects.filter(pk=instance.pk).update(sdk_doc=instance.sdk_doc)
+    else:
+        # The instance is new, so just save it normally
+        instance.save()
+
+
 
 class Query(models.Model):
     query = models.TextField()
