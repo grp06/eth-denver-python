@@ -1,0 +1,1084 @@
+---PAGE 1---
+
+
+
+
+
+
+
+
+
+
+What is "Mainnet Beta"? | Arbitrum Documentation Center
+
+
+
+
+
+
+
+
+
+
+
+
+Skip to main content
+Note: Arbitrum is in mainnet beta, which includes trusted admin controls; use at your own risk! See 
+here
+ for details.
+On this page
+What is "Mainnet Beta"?
+Arbitrum One — the first permissionless Ethereum layer 2 rollup with full Ethereum smart contract functionality — is 
+live on mainnet
+ — as is 
+Nova
+, our first 
+AnyTrust
+ chain! We're sure you're (almost) as excited as we are; here's what you need to know before using the system:
+Some Words of Caution
+​
+Why Mainnet "Beta?"; Current De/Centralization State
+: Arbitrum One and Nova have their full feature sets that you'll see described in these docs fully implemented and live: fraud proofs, permissionless usage, you name it. That said, given that Arbitrum is still a new, cutting edge, and complex system, we currently maintain various levels of control over the chains while they're still in this early Beta phase; this includes contract upgradeability, the ability to pause the system, and validator whitelisting. We believe temporarily maintaining these capabilities is the only responsible way to launch while we continue to harden our system; as we progressively decentralized, these controls will be phased and eventually eliminated entirely.
+To track the status of the Arbitrum chains' decentralization, you can follow updates from 
+us
+ (obviously) or, for Arbitrum One, check out 
+L2Beat
+, who have thus far done a great job of thoroughly and responsibly providing information on Arbitrum Rollup and other L2 systems.
+Why Mainnet "Beta?": Undiscovered Bugs 😱
+: Despite the fact that we at Offchain Labs have thoroughly thought through the many design choices in our protocol, have been as careful implementing them as we could be, have been audited by several independent firms, have a team of engineers that are all very smart and cool, etc.,... there remains a non-zero chance that our codebase contains some undiscovered vulnerabilities that put user funds at risk. Users should carefully factor in this risk in their decision to use Arbitrum one / in deciding how much of their value to entrust into the system. (And should you yourself happen to discover one such bug, might we kindly direct you to our 
+bug bounty program
+?)
+General Caution: Beware of Scams and Rugs
+: Arbitrum, like Ethereum, is permissionless; on both platforms, anybody can deploy any smart contract code they want. Users should treat interacting with contracts on Arbitrum exactly as they do with Ethereum, i.e., they should only do so if they have good reason to trust that the application is secure.
+Getting Started
+​
+..okay, with that out of the way, let's talk about getting started! To get a sense of what's out there, you can check out our 
+portal page
+, where we showcase some of the dApps, wallets, and infrastructure currently live.
+See 
+Public Chains
+ for more info on getting started.
+Some Words of Caution
+Getting Started
+
+
+
+
+
+
+
+
+
+---PAGE 2---
+
+
+
+
+
+
+
+
+
+
+Arbitrum 🔵 | Arbitrum Documentation Center
+
+
+
+
+
+
+
+
+
+
+
+
+Skip to main content
+Note: Arbitrum is in mainnet beta, which includes trusted admin controls; use at your own risk! See 
+here
+ for details.
+ 
+Introduction
+ Overview for New Devs / Users 
+ 
+For Developers
+Guides for Dapp Devs and Node Runners
+ 
+How It All Works
+Technical Overview and specs
+ 
+Whitepaper
+Arbitrum Nitro Whitepaper
+ 
+Research Forum
+Public forum for research disucssion
+ 
+The Code
+View and contribute to the source code
+
+
+
+
+
+
+
+
+
+---PAGE 3---
+
+
+
+
+
+
+
+
+
+
+A Gentle Introduction to Arbitrum | Arbitrum Documentation Center
+
+
+
+
+
+
+
+
+
+
+
+
+Skip to main content
+Note: Arbitrum is in mainnet beta, which includes trusted admin controls; use at your own risk! See 
+here
+ for details.
+On this page
+A Gentle Introduction to Arbitrum
+Q: Hello! What’s Arbitrum?
+​
+Hi! Arbitrum is a technology suite designed to scale Ethereum. You can use Arbitrum chains to do all things you do on Ethereum — use Web3 apps, deploy smart contracts, etc., but your transactions will be cheaper and faster. Our flagship product — Arbitrum Rollup — is an Optimistic rollup protocol that inherits Ethereum-level security.
+Q: What, what’s “Ethereum”? What's a “smart contract”? Where am I?
+​
+If you aren’t yet familiar with the Ethereum ecosystem, you can check out 
+ethereum.org
+ for an intro. Come back whenever you're ready, no rush.
+Q: You said Arbitrum exists to “scale” Ethereum; why does Ethereum need this help? Is there something wrong with Ethereum?
+​
+Ethereum is awesome; on its own, however, it’s also very limited. The Ethereum blockchain only allows about 20-40 transactions per second (TPS) (that’s in total, for all Ethereum users); when the limit is reached, users are forced to compete against each other for their transactions to be included, which causes fees to go up.
+Q: Why does Ethereum have such low TPS?
+​
+This was a deliberate decision in Ethereum’s design. Ethereum requires that its nodes (computers running the Ethereum software) have a way of coming to consensus on the current state of things; the way they do this is by processing every transaction in Ethereum’s history; i.e., if you’ve ever used Ethereum, every Ethereum full node has a copy of your transactions in its blockchain ledger.
+One of the Ethereum community’s precepts, being an open, decentralized, peer to peer system, is that it should be reasonably accessible for anyone to run an Ethereum node and validate the chain for themselves; i.e., if it gets too expensive (in terms of hardware requirements / computational resources), this undercuts the fundamental goal of decentralization.
+The combination of these two factors — every node has to process every transaction, and we want it to be relatively feasible to run a node — means Ethereum transaction throughput has to be capped fairly low.
+Q: And Arbitrum Rollup fixes this?
+​
+Arbitrum rollup fixes this! The basic idea is this: an Arbitrum Rollup chain runs as a sort of sub-module within Ethereum. Unlike regular, layer 1 ( “L1”) Ethereum transactions, we don’t require Ethereum nodes to process every Arbitrum transaction; rather, Ethereum adopts an 
+“innocent until proven guilty"
+ attitude to Arbitrum. Layer 1 initially “optimistically assumes” activity on Arbitrum is following the proper rules. If a violation occurs (i.e., somebody claims “now I have all of your money”), this claim can be disputed back on L1; fraud will be proven, the invalid claim disregarded, and the malicious party will be financially penalized.
+This ability to adjudicate and prove fraud on L1 is Arbitrum’s key, fundamental feature, and is how and why the system inherits Ethereum’s security.
+Q: So we can use Ethereum to prove fraud on Arbitrum; cool! But if fraud is committed, can we be absolutely sure that we'll be able to prove it?
+​
+Yes, indeed we can be. This is where the “rollup” part comes in. The data that gets fed into an Arbitrum Rollup chain (i.e., user’s transaction data) is posted directly on Ethereum. Thus, as long as Ethereum itself is running securely, anybody who’s interested has visibility into what’s going on in Arbitrum, and has the ability to detect and prove fraud.
+Q: Who actually does this work (of checking for fraud, proving it, etc?)
+​
+The parties who move the Arbitrum chain state forward on L1 — i.e., making claims about the chain’s state, disputing other’s claims, etc. — are called validators.
+In practice, we don’t expect the average Arbitrum user to be interested in running a
+validator, just like the average Ethereum user typically doesn’t run their own layer 1 staking node. The crucial property, however, is that anybody can; becoming an Arbitrum validator requires no special permission (
+post-mainnet beta
+), only that a user runs the 
+open source validator software
+ (and stakes Ether when/if they need to take action).
+Additionally, as long as there’s even just one honest validator, the chain will remain secure; i.e., it only takes one non-malicious fraud-prover to catch any number of malicious trouble-makers. These properties together make the system “trustless”; users are not relying on any special designated party for their funds to be secure.
+Q: And how exactly is “fraud” “proven”? Sounds complicated.
+​
+Oh, it’s not so bad. In essence: if two validators disagree, only one of them (at most) can be telling the truth. In a dispute, the two validators play an interactive, call-and-response game, in which they narrow down their dispute to a single computational step (think of something small and simple, like multiplying two numbers). This one step gets executed on L1, and will, by necessity, prove that the honest party was telling the truth. For a more detailed rundown, see 
+here
+.
+Q: This dispute game obviously takes some time; does this impose any sort of delay on Arbitrum users' transactions?
+​
+The only delay that's felt by a user is in "withdrawing" — moving their funds from Arbitrum back to Ethereum; if users are withdrawing directly from Arbitrum to Ethereum, they must typically wait 1 week before receiving their funds on L1. If users use a fast-bridge application, however, they can bypass this delay period entirely (likely for a small fee). Anything else a user does — i.e., depositing funds from Ethereum onto Arbitrum, or using a dapp deployed on an Arbitrum chain — doesn't incur this delay period.
+Q: Okay, so backing up: the “optimistic execution” part is how and why Arbitrum is able to offer low fees, yes?
+​
+Primarily, yes, this is the heart of where the savings come from. However, there are a number of other means by which Arbitrum alleviates the burden on L1, all of which translate to lower transaction costs for end users.
+For one, Arbitrum transactions are submitted on the L1 in batches; typically, a single batch (submitted in a single L1 transaction) will contain several hundred L2 transactions. Batching amortizes the overhead cost of interacting with the L1, and thus offers significant savings over posting individual transactions at a time. Furthermore, the transaction data is posted on L1 in compressed form (and only decompressed within the L2 environment), further minimizing the transaction’s L1 footprint.
+Q: As far as the experience of using Arbitrum: when you said that it’s very similar to using Ethereum…
+​
+We really meant it, yes.
+Different layer 2 protocols emphasize and optimize for different things; Arbitrum was created with Ethereum compatibility as a top priority. This means users can use Arbitrum with all their favorite Ethereum wallets; developers can build and deploy contracts with all their favorite Ethereum libraries and tooling; in fact, most of the time, the experience of using Arbitrum will feel identical to that of using Ethereum (with the important exception of it being much cheaper and faster).
+Much development went into achieving this level of Ethereum compatibility. But at its core: the Arbitrum itself uses a fork of 
+Geth
+ — the most widely used Ethereum implementation — with modifications to transform it into a trustless layer 2. This means most of the code running in Arbitrum is identical to the code running in Ethereum. We call this cutting-edge approach Nitro (developers can see the codebase 
+here
+).
+Q: So it sounds like Arbitrum Rollup is an ideal solution that solves any and all scaling problems…?
+​
+Arbitrum Rollup is very awesome and cool; its design is geared heavily toward avoidance of introducing any centralization or trust assumptions, and it is thus a clear, strict net-win for the Ethereum ecosystem. Decentralization, however, comes at a (literal) price, and not all applications and users necessarily want or need to pay that price. For dapp use-cases with different security considerations, different tools in the Arbitrum suite are appropriate; i.e., Arbitrum AnyTrust chains!
+Q: What’s an AnyTrust chain?
+​
+An Arbitrum AnyTrust chain doesn’t have the same decentralization / trustlessness / permissionless security guarantees of a Rollup chain, and thus can offer lower fees. Rollup and AnyTrust are similar in many ways, though have one key difference: whereas in Rollup, all data is posted on L1 (which allows anyone to permissionless join as a validator), in AnyTrust, data is managed off-chain. In the case of a challenge, an AnyTrust chain reverts back to “rollup mode”; the security assumption here is that at least 2 of the committee members are honest (i.e., they will provide the data when it’s necessary). Keeping the data off-chain in the happy/common case means the system can charge the user significantly lower fees.
+For applications that require high transaction throughput and don’t require the full decentralization that rollups provide, AnyTrust could be a sensible tradeoff.
+Q: So there's more than one Arbitrum chain out there?
+​
+Yep! The fact that multiple chains can run in parallel is a crucial perk to off-chain scaling technology. Currently, on Ethereum mainnet, there are 2 Arbitrum chains: one Arbitrum Rollup chain, called 
+"Arbitrum One,"
+ and one AnyTrust chain, called 
+"Nova"
+; users and developers can pick whatever suits their security / transaction cost needs.
+
+
+
+
+
+
+
+
+
+---PAGE 4---
+
+
+
+
+
+
+
+
+
+
+Running a Node | Arbitrum Documentation Center
+
+
+
+
+
+
+
+
+
+
+
+
+Skip to main content
+Note: Arbitrum is in mainnet beta, which includes trusted admin controls; use at your own risk! See 
+here
+ for details.
+On this page
+Running a Node
+Note: If you’re interested in accessing an Arbitrum chain, but you don’t want to set up your own node, see our 
+Node Providers
+ to get RPC access to fully-managed nodes hosted by a third party provider
+Minimum Hardware Configuration
+​
+Followings specify the minimum hardware configuration required to setup a Nitro full node (not archival):
+RAM: 4-8 GB
+CPU: 2-4 core CPU (For AWS: t3 xLarge)
+Storage: Minimum 1.2TB SSD (make sure it is extendable)
+Estimated Growth Rate: around 3 GB per day
+❗️Note: The minimum storage requirements will change over time as the Nitro chain grows. It is recommended to use more than the minimum requirements to run a robust full node.
+Required Artifacts
+​
+Latest Docker Image: 
+offchainlabs/nitro-node:v2.0.11-8e786ec
+Arbitrum One Nitro Genesis Database Snapshot
+Use the parameter 
+--init.url="https://snapshot.arbitrum.io/mainnet/nitro.tar"
+ on first startup to initialize Nitro database
+If running more than one node, easiest to manually download image from 
+https://snapshot.arbitrum.io/mainnet/nitro.tar
+ and host it locally for your nodes
+Or use 
+--init.url="file:///path/to/snapshot/in/container/nitro.tar"
+ to use a local snapshot archive
+sha256 checksum: 
+a609773c6103435b8a04d32c63f42bb5fa0dc8fc38a2acee4d2ab2d05880205c
+size: 33.5573504 GB
+Other chains do not have classic blocks, and do not require an initial genesis database
+Required parameter
+​
+--l1.url=<Layer 1 Ethereum RPC URL>
+Must provide standard layer 1 node RPC endpoint that you run yourself or from a node provider
+--l2.chain-id=<L2 Chain ID>
+See 
+public chains
+ for a list of Arbitrum chains and the respective L2 Chain Ids
+Important ports
+​
+RPC: 
+8547
+Sequencer Feed: 
+9642
+WebSocket: 
+8548
+WS port 
+8548
+ needs extra args to be opened. Please use these flags:
+--ws.port=8548
+--ws.addr=0.0.0.0
+--ws.origins=
+*
+Putting it all together
+​
+When running docker image, an external volume should be mounted to persist the database across restarts. The mount point inside the docker image should be 
+/home/user/.arbitrum
+Here is an example of how to run nitro-node:
+Note that is important that 
+/some/local/dir/arbitrum
+ already exists, otherwise the directory might be created with 
+root
+ as owner, and the docker container won't be able to write to it
+docker
+ run --rm -it  -v /some/local/dir/arbitrum:/home/user/.arbitrum -p 
+0.0
+.0.0:8547:8547 -p 
+0.0
+.0.0:8548:8548 offchainlabs/nitro-node:v2.0.11-8e786ec --l1.url https://l1-node:8545 --l2.chain-id
+=
+<
+L2ChainId
+>
+ --http.api
+=
+net,web3,eth,debug --http.corsdomain
+=
+* --http.addr
+=
+0.0
+.0.0 --http.vhosts
+=
+*
+Note that if you are running L1 node on localhost, you may need to add 
+--network host
+ right after 
+docker run
+ to use docker host-based networking
+When shutting down docker image, it is important to allow for a graceful shutdown so that the current state can be saved to disk. Here is an example of how to do a graceful shutdown of all docker images currently running
+docker
+ stop --time
+=
+300
+ 
+$(
+docker
+ 
+ps
+ -aq
+)
+Note on permissions
+​
+The Docker image is configured to run as non-root UID 1000. This means if you are running in Linux or OSX and you are getting permission errors when trying to run the docker image, run this command to allow all users to update the persistent folders
+mkdir
+ /data/arbitrum
+chmod
+ -fR 
+777
+ /data/arbitrum
+Optional parameters
+​
+--init.url="https://snapshot.arbitrum.io/mainnet/nitro.tar"
+URL to download genesis database from. Only needed when starting Arbitrum One without database
+--node.rpc.classic-redirect=<classic node RPC>
+If set, will redirect archive requests for pre-nitro blocks to the designated RPC, which should be an Arbitrum Classic node with archive database. Only valid for Arbitrum One.
+--http.api
+APIs offered over the HTTP-RPC interface (default 
+net,web3,eth
+)
+Add 
+debug
+ to enable tracing
+--http.corsdomain
+Comma separated list of domains from which to accept cross origin requests (browser enforced)
+--http.vhosts
+Comma separated list of virtual hostnames from which to accept requests (server enforced). Accepts 
+*
+ wildcard (default 
+localhost
+)
+--http.addr
+Address to bind RPC to. May need to be set to 
+0.0.0.0
+ for docker networking to work properly
+--node.caching.archive
+Retain past block state
+--node.feed.input.url=<feed address>
+Defaults to 
+wss://<chainName>.arbitrum.io/feed
+. If running more than a couple nodes, you will want to provide one feed relay per datacenter, see further instructions below
+--node.forwarding-target=<sequencer RPC>
+Defaults to appropriate L2 Sequencer RPC depending on L1 and L2 chain IDs provided
+--node.rpc.evm-timeout
+Defaults to 
+5s
+, timeout used for 
+eth_call
+ (0 == no timeout)
+--node.rpc.gas-cap
+Defaults to 
+50000000
+, cap on computation gas that can be used in 
+eth_call
+/
+estimateGas
+ (0 = no cap)
+--node.rpc.tx-fee-cap
+Defaults to 
+1
+, cap on transaction fee (in ether) that can be sent via the RPC APIs (0 = no cap)
+Feed Relay
+​
+When running more than one node, you want to run a single feed relay per datacenter, which will reduce ingress fees and improve stability
+The feed relay is in the same docker image
+Here is an example of how to run the feed relay for Arbitrum One:
+docker
+ run --rm -it  -p 
+0.0
+.0.0:9642:9642 --entrypoint relay offchainlabs/nitro-node:v2.0.11-8e786ec --node.feed.output.addr
+=
+0.0
+.0.0 --node.feed.input.url
+=
+wss://arb1.arbitrum.io/feedy --l2.chain-id
+=
+42161
+Here is an example of how to run nitro-node for Arbitrum One with custom relay:
+docker
+ run --rm -it  -v /some/local/dir/arbitrum:/home/user/.arbitrum -p 
+0.0
+.0.0:8547:8547 -p 
+0.0
+.0.0:8548:8548 offchainlabs/nitro-node:v2.0.11-8e786ec --l1.url
+=
+https://l1-mainnet-node:8545 --l2.chain-id
+=
+42161
+ --http.api
+=
+net,web3,eth,debug --http.corsdomain
+=
+* --http.addr
+=
+0.0
+.0.0 --http.vhosts
+=
+* --node.feed.input.url
+=
+ws://local-relay-address:9642
+Types of Validators
+​
+Currently, the ability to post assertions on-chain for mainnet Arbitrum chains is whitelisted. However, anyone can run a validator in 
+Watchtower
+ mode which will immediately log an error if an on-chain assertion deviates from the locally computed chain state
+Full list of validator strategies:
+Watchtower
+If local state disagrees with on-chain assertion, simply log an error (no wallet required, gas never spent on-chain)
+Defensive
+ (Whitelist required)
+Post stake and create challenge if local state disagrees with on-chain assertion (wallet required, will only post stake on-chain if bad assertion found)
+StakeLatest
+ (Whitelist required)
+Stay staked on latest assertion and challenge any bad assertions found (wallet required, always staked, uses some gas every time new assertion created)
+ResolveNodes
+ (Whitelist required)
+Stay staked on latest assertion, resolve any unconfirmed assertions and challenge any bad assertions found (wallet required, always staked, uses some gas every time unconfirmed assertion resolved or new assertion created)
+MakeNodes
+ (Whitelist required)
+Continuously create new assertions, challenging any bad assertions found (wallet required, always staked, most expensive node to run)
+Note that if there is more than one 
+MakeNodes
+ validator running, they might all try to create a new assertion at same time. In that case, only one will be successful, and the others will have still spent gas on reverted call that didn't do anything.
+Running Watchtower Validator
+​
+Running a validator in 
+Watchtower
+ mode is the same as running a Nitro node with 
+--node.validator.enable --node.validator.strategy=Watchtower
+Here is an example of how to run a watchtower validator for Arbitrum One:
+docker
+ run --rm -it  -v /some/local/dir/arbitrum:/home/user/.arbitrum offchainlabs/nitro-node:v2.0.11-8e786ec --l1.url
+=
+https://l1-mainnet-node:8545 --l2.chain-id
+=
+42161
+ --node.validator.enable --node.validator.strategy
+=
+Watchtower
+If a deviation is detected, a validator in Watchtower mode will log an error containing the string 
+found incorrect assertion in watchtower mode
+To verify validator is working, this log line shows the wallet is setup correctly:
+INFO 
+[
+09-28
+|
+18
+:43:49.367
+]
+ running as validator                     
+txSender
+=
+nil 
+actingAsWallet
+=
+nil 
+whitelisted
+=
+false 
+strategy
+=
+Watchtower
+strategy
+ should be 
+Watchtower
+The log line 
+validation succeeded
+ shows that the L2 block validator is working
+The log line 
+found correct assertion
+ shows that the L1 validator is working
+Creating Wallet for Whitelisted Validator
+​
+Watchtower validators never need a wallet, because they never post on-chain
+Defensive validators need a wallet configured, but the wallet does not need to be funded until it logs that an assertion has been found
+All other validators require a funded wallet to immediately post stake, as well as additional funds that will be spent at regular intervals
+Here is an example of how to tell Nitro to create validator wallet for Arbitrum One and exit:
+docker
+ run --rm -it  -v /some/local/dir/arbitrum:/home/user/.arbitrum offchainlabs/nitro-node:v2.0.11-8e786ec --l1.url
+=
+https://l1-mainnet-node:8545 --l2.chain-id
+=
+42161
+ --node.validator.enable --l1.wallet.only-create-key --l1.wallet.password
+=
+"SOME SECURE PASSWORD"
+Wallet file will be created under the mounted directory inside the 
+arb1/wallet/
+ directory for Arb1, or 
+nova/wallet/
+ directory for Nova.  Be sure to backup the wallet, it will be the only way to withdraw stake when desired
+Running Whitelisted Defensive Validator
+​
+A defensive validator requires that a wallet has already been created using the above steps
+Defensive validator wallets do not need to be funded initially
+If a defensive validator detects a deviation, it will log 
+bringing defensive validator online because of incorrect assertion
+, and wait for funds to be added to wallet so stake can be posted and a dispute created
+Here is an example of how to run a whitelisted defensive validator for Arbitrum One:
+docker
+ run --rm -it  -v /some/local/dir/arbitrum:/home/user/.arbitrum offchainlabs/nitro-node:v2.0.11-8e786ec --l1.url
+=
+https://l1-mainnet-node:8545 --l2.chain-id
+=
+42161
+ --node.validator.enable --node.validator.strategy
+=
+Defensive --l1.wallet.password
+=
+"SOME SECURE PASSWORD"
+To verify validator is working, this log line shows the wallet is setup correctly:
+INFO 
+[
+09-28
+|
+18
+:43:49.367
+]
+ running as validator                     
+txSender
+=
+0x
+..
+. 
+actingAsWallet
+=
+0x
+..
+. 
+whitelisted
+=
+true 
+strategy
+=
+Defensive
+whitelisted
+ should be 
+true
+ after your wallet has been added to whitelist
+strategy
+ should be 
+Defensive
+txSender
+ and 
+actingAsWallet
+ should both be present and not 
+nil
+The log line 
+validation succeeded
+ shows that the L2 block validator is working
+The log line 
+found correct assertion
+ shows that the L1 validator is working
+Minimum Hardware Configuration
+Required Artifacts
+Required parameter
+Important ports
+Putting it all together
+Note on permissions
+Optional parameters
+Feed Relay
+Types of Validators
+Running Watchtower Validator
+Creating Wallet for Whitelisted Validator
+Running Whitelisted Defensive Validator
+
+
+
+
+
+
+
+
+
+---PAGE 5---
+
+
+
+
+
+
+
+
+
+
+Nitro Migration Notes for Solidity Devs: Living Document | Arbitrum Documentation Center
+
+
+
+
+
+
+
+
+
+
+
+
+Skip to main content
+Note: Arbitrum is in mainnet beta, which includes trusted admin controls; use at your own risk! See 
+here
+ for details.
+On this page
+Nitro Migration Notes for Solidity Devs: Living Document
+The following is a summary of changes in the Arbitrum One chain's 8/31/22 Nitro upgrade that dapp devs should be aware of.
+Cool New Stuff
+​
+For starters, here's a sampling of exciting perks dapps get with the Nitro upgrade:
+Ethereum L1 Gas Compatibility 🥳
+: Gas pricing and accounting for EVM operations is be perfectly in line with L1; no more ArbGas.
+Although in Nitro L2 opcodes are now priced the exact same as Eth L1 - you still have to pay for the L1 calldata (which gets represented as L2 gas units). Your transactions' gas used won't be the same as Eth L1 but during contract execution the opcode cost and 
+gasleft
+ interactions are now better aligned with Eth L1. Read more 
+here
+.
+Safer Retryable tickets 🥳
+: Retryable tickets' submission cost is collected in the L1 Inbox contract; if the submission cost is too low, the transaction will simply revert on the L1 side, eliminating the 
+failure mode
+ in which a retryable ticket fails to get created.
+Calldata compression 🥳
+: Compression takes place protocol level; dapps don't need to change anything, data will just get cheaper! (You are charged even less if your calldata is highly compressible with brotli.)
+Support for All Ethereum L1 precompiles 🥳
+: (
+blake2f
+, 
+ripemd160
+, etc)
+Tighter Synchronization with L1 Block Numbers 🥳
+: L1 block numbers (accessed via 
+block.number
+ on L2) are updated more frequently in Nitro than in Arbitrum classic; expect them to be nearly real-time/ in sync with L1.
+Frequent Timestamps 🥳
+: Timestamps (accessed via 
+block.timestamp
+ on L2) are updated every block based on the sequencer’s clock; i.e., it is no longer linked to the timestamp of the last L1 block.
+L2 Block hash EVM Consistency 🥳
+: L2 block hashes take the same format as on Ethereum (if you query it from the ArbSys precompile, not the one in 
+block.hash(uint256)
+).
+Geth tracing 🥳
+: 
+debug_traceTransaction
+ RPC endpoint is supported; this includes tracing of ArbOS internal bookkeeping actions.
+Breaking changes
+​
+Dapps
+​
+Gas Accounting
+: It's now consistent with the L1 EVM; L2 gas usage will change due to different accounting from ArbGas. Any hard-coded gas values should be changed accordingly (the same applies to any gas amount used in conjunction with 
+gasleft
+). That said, you shouldn't be hard-coding any gas values anyway, just like you shouldn't in L1 Ethereum, since both the L1 and L2 gas schedule may change in the future.
+Although in Nitro L2 opcodes are now priced the exact same as Eth L1 - you still have to pay for the L1 calldata (which gets represented as L2 gas units). Your transactions' gas used won't be the same as Eth L1 but during contract execution the opcode cost and 
+gasleft
+ interactions are now better aligned with Eth L1. Read more 
+here
+.
+No more storage gas
+: there is no more concept of a separate pool of storage gas, and opcodes are priced identically to the L1 EVM.
+New L2 to L1 event signature
+: The function signature for the 
+L2 to L1 event
+ emitted by ArbSys has now changed.
+Lower contract code size limit
+: Contracts of up to 48KB were deployable, but now only up to 24KB are deployable (as specified in 
+EIP 170
+). Previously deployed contracts above the limit will be maintained (but contracts deployed by these legacy contracts are capped by the new size).
+Retryable Tickets
+:
+The submission cost is now enforced in the L1 inbox and checked against the L1 transaction's 
+msg.value
+; contracts shouldn't rely on funds pooled in the L2 destination to cover this cost.
+The current submission price is now not available in the L2 ArbRetryableTx precompile, instead it can be queried in the L1 Delayed Inbox 
+calculateRetryableSubmissionFee(uint256 dataLength, uint256 baseFee)
+For the redemption of retryable tickets, the calculation of the L2 transaction ID changed and differs between different redeem attempts (i.e. after failed attempts). See 
+arbitrum-sdk
+ for a reference implementation on the new client-side flow.
+A retryable ticket now isn't redeemed in the same transaction as when the 
+redeem
+ function was called. The user's transaction causes the retryable to be scheduled to be executed after the current transaction is complete. More information on this available in 
+here
+.
+Auto-redeem will not be created if the user does not have enough balance to pay for 
+gasFeeCap * gasLimit
+ (meaning you can no longer set a max gas fee cap).
+Deposited gas will be refunded to 
+excessFeeRefundAddress
+ if it cannot create an auto-redeem.
+The user will be refunded the submission cost of their retryable if it is auto-redeemed.
+The lifecycle of retryable tickets are now tracked differently. Previously there was a retryable ticket ID, which could be used to deterministically generate the expected tx hash. In Nitro, you instead have a retryable creation tx hash (which can be retrieved by the SDK's 
+L1ToL2Message.retryableCreationId
+ or calculated by calling 
+L1ToL2Message.calculateSubmitRetryableId
+). This value does not directly map into an expected tx hash where it was redeemed. You need to instead listen to the 
+RedeemScheduled
+ event, which tells you the expected 
+retryTxHash
+ of that attempt.
+The retryTxHash is no longer deterministic solely based on the retryable ticket id; it is now a hash of the transaction input like a normal transaction (following the 
+Typed Tx Envelope standard
+)
+If the retryable 
+to
+ address is set to the zero address, it will now function as a contract deployment.
+Arbitrum blockhash
+: 
+blockhash(x)
+ returns a cryptographically insecure, pseudo-random hash for 
+x
+ within the range 
+block.number - 256 <= x < block.number
+. If 
+x
+ is outside of this range, 
+blockhash(x)
+ will return 
+0
+. This includes 
+blockhash(block.number)
+, which always returns 
+0
+ just like on Ethereum. The hashes returned do not come from L1.
+ArbSys precompile
+: 
+ArbSys.getTransactionCount
+ and 
+ArbSys.getStorageAt
+ are removed in nitro
+Protocol Contracts
+​
+New Contract Deployments
+: For the Nitro upgrade, these contracts were redeployed on L1 to new addresses:
+SequencerInbox
+RollupCore
+Outbox
+Bridge
+bridge.sol contract will be redeployed and not the whole Bridge.
+The 
+bridge contract address
+ was be changed.
+For addresses of protocol contracts, see 
+Useful Addresses
+.
+Also, worth mentioning that the address of the Delayed Inbox contract and Token Bridge contracts (Router and Gateways) weren't changed after the migration.
+Sequencer Inbox changes
+: The Sequencer inbox has a new interface and requires a new approach to determining a transaction's inclusion on L1 (see "Batch Info In Receipts" below).
+Outbox Changes
+: The Outbox has a new (simplified!) architecture; in short, all outgoing messages will be included in a single Merkle tree (opposed to Arbitrum classic, in which many outbox entries, each with its own Merkle root). See 
+arbitrum-sdk
+ for a reference implementation on how to handle the new flow of interacting with the outbox.
+RPCs
+​
+No Parity tracing
+: Initially 
+trace_filter
+ RPCs won't be available; they will be in the coming months. (Note that the Geth tracing APIs 
+are
+ available).
+Gas Info in Transaction Receipts
+: Arbitrum transaction receipts return data about gas in a new format; receipts will have 
+gasUsed
+ (total) and 
+gasUsedForL1
+ fields (instead of the 
+feeStats
+ field in Arbitrum classic).
+Batch Info In Receipts
+: Arbitrum transaction receipts no longer include the 
+l1SequenceNumber
+ field; the 
+findBatchContainingBlock
+ or 
+getL1Confirmations
+ methods in the 
+NodeInterface precompile
+ can be used to determine a transaction's inclusion in L1.
+Estimate Retryable Ticket
+: Use 
+eth_estimateGas
+ on 
+NodeInterface.estimateRetryableTicket
+ to estimate the gas limit of a retryable; the function itself no longer return the gas used and gas price. The gas price can be estimated using 
+eth_gasPrice
+.
+Cool New Stuff
+Breaking changes
+
+
+
+
+
+
+
+
+
+---PAGE 6---
+
+
+
+
+
+
+
+
+
+
+Overview: The Lifecycle of an Arbitrum Transaction | Arbitrum Documentation Center
+
+
+
+
+
+
+
+
+
+
+
+
+Skip to main content
+Note: Arbitrum is in mainnet beta, which includes trusted admin controls; use at your own risk! See 
+here
+ for details.
+On this page
+Overview: The Lifecycle of an Arbitrum Transaction
+As an introduction to the various components that compose the Arbitrum protocol, we'll go step-by-step over the phases an Arbitrum transaction goes through, starting with a client creating a signed transaction, to it ultimately being confirmed back on layer 1.
+We'll also intersperse it with "finality checks," explaining what guarantees the client has over their transaction's finality (i.e., assurances that their transaction's result is guaranteed and won't later be altered) over the course of a transaction's various stages.
+This overview will be focused on the Arbitrum Rollup protocol; see 
+Inside AnyTrust
+ for differences in the Arbitrum AnyTrust protocol. Also, for convenience/simplicity, we'll be describing the system in its final form in terms of things like permissionless validation and contract upgradability; for the current state of the Arbitrum Mainnet chains, see 
+"Mainnet Beta"
+.
+For clarity on any terminology that may be unfamiliar, see our 
+glossary
+.
+1. Sequencer receives transaction
+​
+Typically, a transaction's lifecycle starts with the Sequencer, the entity designated with transaction ordering, receiving a transaction from a client. The Sequencer can receive a transaction one of two ways:
+1a. Directly / Offchain
+​
+For typical transacting within the L2 environment (i.e., using an L2 native dapp), a client will connect their wallet to an L2 node and directly deliver a signed transaction.
+1b. ... or from L1 (via the Delayed Inbox).
+​
+Alternatively, a client can send a message to the Sequencer by signing and publishing an L1 transaction in the Arbitrum chain's Delayed Inbox. This functionality is most commonly used for depositing ETH or tokens via a bridge.
+See
+:
+Retryables
+The Sequencer
+Token Bridge
+2. Sequencer orders transaction (off-chain)
+​
+Upon receiving a transaction, the Sequencer will:
+Order it in its off-chain Inbox
+Locally execute it using the Arbitrum Nitro VM (including collecting/allocating L1 and L2 fees, etc.)
+"Instantly" give a transaction receipt to the client ("instant" in that it doesn't require any additional on-chain confirmations, and typically shouldn't take more than a second or two).
+See
+:
+ArbOS
+Geth
+L1 pricing
+ / 
+L2 Gas
+~ ~ ~ FINALITY CHECK: Trusted / Soft Confirmation ~ ~ ~
+​
+At this phase, the client's acceptance of finality relies on trusting the Sequencer. I.e., a malicious/faulty Sequencer could deviate between what it promised in the transaction receipt and what is ultimately published in a batch (see phase 3).
+note
+Even a malicious/faulty Sequencer can only, at worst, reorder or temporarily delay transactions; it cannot, e.g., forge a client's transaction or propose an invalid state update. Given the degree of trust in the Sequencer at phase 2, we sometimes refer to the "instant" receipt that the Sequencer provides as a "soft confirmation."
+3. Sequencer posts transaction in a batch (on-chain)
+​
+The Sequencer will eventually post a batch of L2 transactions which includes our client's transaction onto the underlying L1 (as calldata); under normal conditions, the Sequencer will post batches 
+every few minutes
+.
+3a. What if the Sequencer never includes our transaction?
+​
+Even if the Sequencer never includes our transaction in a batch, the client can include it in the L2 by posting in the delayed inbox and then "force including" it after some delay period (currently ~24 hours on Arbitrum One).
+note
+The Sequencer is forced to include messages from the delayed Inbox in the queued order that they appear on chain, i.e. it processes messages using the "first in, first out" method. Thus, it can't selectively delay particular messages while including others; i.e., delaying the message at the front of the queue means delaying all messages behind it as well.
+See:
+"The Sequencer / Censorship Resistance."
+~ ~ ~ FINALITY CHECK: Ethereum-Equivalent Finality! ~ ~ ~
+​
+At this stage, assuming that a client believes there to be at least one well behaved active Arbitrum validator (recall that in Arbitrum Rollup, validating is permissionless), the client can treat their transaction's finality as equivalent to an ordinary Ethereum transaction. In other words, their L2 transaction has the same finality as the L1 transaction that recorded it in a batch. This means the client should use whatever finality heuristic they use for regular Ethereum transactions (i.e., waiting on L1 block confirmations, etc.), applied to the L1 batch-posting transaction. This also means that a client uncomfortable with the trust model of the Sequencer's soft confirmations (phase 2) can simply wait for the Sequencer to post their transaction in a batch (phase 3).
+How are we able to make such bold a claim? A few (related) things:
+Once the Sequencer posts a batch, its transactions' ordering is entirely determined by the L1; the Sequencer effectively has no more say in our transaction's lifecycle at all.
+The Inbox contract on L1 ensures that when the Sequencer posts a batch, it posts data sufficient for any Arbitrum Node to reconstruct and validate the state of the L2 chain; i.e., the availability of this "input" data is guaranteed by Ethereum itself.
+Execution on Arbitrum is fully deterministic; i.e., a current chain state along with new input data is sufficient to compute the new chain state; thus, the moment this input data is available (i.e., when the Sequencer posts a batch), the L2 chain's state can be computed.
+Arbitrum's fault-proof system is sound; i.e., if any validator (later) tries to deviate from the valid L2 state, an honest validator will ultimately be able challenge this and win. Since we already know that valid state will ultimately win out, we can treat our transaction as L1-finalized now.
+4. Validator asserts RBlock that includes transaction
+​
+A staked, active validator will then run the Arbitrum VM over the inputs in the Inbox (just like the Sequencer did earlier, except now only over transactions posted on L1) and make an on-chain assertion about the chain's latest state, i.e., a rollup block or "RBlock." RBlocks typically get asserted every 30-60 minutes.
+See
+:
+ArbOS
+Geth
+L1 pricing
+ / 
+L2 Gas
+note
+RBlock assertions include claims about the state of the Outbox; if our transaction triggered any L2 to L1 messages, a RBlock will include an update to the Outbox to reflect its inclusion.
+See
+:
+The Outbox
+4a. RBlock is valid / goes unchallenged
+​
+In the happy / common case, the validator asserted a valid RBlock, and over the course of the dispute window — 1 week on Arbitrum One — no other validators challenge it.
+4b. Assertion is challenged!
+​
+If two validators assert different RBlocks, only (at most) one of them can be valid, so they are put into a dispute.
+A dispute consists of two staked validators dissecting their disagreement down to a single L2 block, and then dissecting the sequence of VM instructions within this block down to a single OPCODE, then finally, executing this single operation. The underlying VM the Arbitrum uses is 
+WebAssembly (Wasm)
+, or, more precisely, "WAVM." This is all refereed by contracts on L1.
+See:
+Challenges
+Wasm/WAVM
+L1 contracts also keep track of the tree of all assertions; i.e., how many stakers are in disagreement, who is currently disputing with whom, etc. We refer to this level of Arbitrum's design architecture as its "assertion tree protocol."
+See:
+Assertion Tree Protocol
+~ ~ ~ FINALITY CHECK: STILL THE SAME Ethereum-Equivalent Finality! ~ ~ ~
+​
+Remember in phase 3 when said that once the L1 has committed to inputs, we can guarantee the L2 output? We meant it! Even during a dispute, Arbitrum nodes continue to execute and active validators continue to make assertions on the valid leaf in the state-tree; nothing that can happen in phase 4 has any effect on the L1-level finality we've already locked in at phase 3.
+5. RBlock is confirmed on L1
+​
+Once any and all disputes have been resolved and sufficient time has passed, our RBlock can be confirmed on L1 (any Ethereum account on L1 can confirm it). Upon confirmation, the Outbox root on L1 gets updated.
+~ ~ ~ FINALITY CHECK: L2-to-L1 Messages Executable on L1 ~ ~ ~
+​
+If our client's transaction didn't include any L2-to-L1 messages (e.g., withdrawals), phase 5 has no material effect on their transaction. If it did include an L2-to-L1 transaction, it is only after confirmation that the message can be executed in the Outbox on L1.
+note
+Even before phase 5, the client has L1 finality on the 
+result
+ of their L2-to-L1 message, they just can't execute it yet; i.e., they have a guarantee that they'll eventually be able to, e.g., finalize their withdrawal, they just can't claim their funds on L1 until the RBlock is confirmed.
+1. Sequencer receives transaction
+2. Sequencer orders transaction (off-chain)
+3. Sequencer posts transaction in a batch (on-chain)
+4. Validator asserts RBlock that includes transaction
+5. RBlock is confirmed on L1
+
+
+
+
+
+
+
+
+
+---PAGE 7---
+
+
+
+
+
+
+
+
+
+
+Getting Started | Arbitrum Documentation Center
+
+
+
+
+
+
+
+
+
+
+
+
+Skip to main content
+Note: Arbitrum is in mainnet beta, which includes trusted admin controls; use at your own risk! See 
+here
+ for details.
+On this page
+Getting Started
+Welcome to Arbitrum! Here's how to become an Arbitrum user:
+Note: before interacting with a mainnet chain, users should familiarize themselves with the risks; see 
+Mainnet Beta
+.
+Connect Your Wallet
+​
+Connect 
+your wallet
+ to an Arbitrum chain, adding the chain's RPC endpoint if required.
+Get Some Native Currency
+​
+You'll need a chain's native currency to transact. You can either acquire funds directly on an Arbitrum chain, or get funds on a chain's underlying L1 and bridge it across. You can get testnet Ether from the following faucets:
+Goerli
+Nitro Goerli Rollup
+Supported centralized exchanges
+ allow you to purchase (mainnet) Ether and withdraw it directly onto Arbitrum one.
+Deposit And Withdraw
+​
+To move your Ether and Tokens between Arbitrum and Ethereum chains, visit 
+bridge.arbitrum.io
+.
+Use L2 Dapps!
+​
+Interacting with Arbitrum chains will feel very similar to using Ethereum, just cheaper and faster! To get a sense of what's out there, you can check out our 
+portal page
+, where we showcase some of the dApps, wallets, and infrastructure currently live on Arbitrum One.
+Build on Arbitrum
+​
+Dapp developers can 
+build on Arbitrum seamlessly
+ using their favorite Ethereum tooling.
+What's Next
+​
+The team working on Arbitrum is always interested and looking forward to engage with its users.
+Why not follow us on 
+Twitter
+ or join our community on 
+Discord
+?
+
+
+
+
+
+
+
+
+

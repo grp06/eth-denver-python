@@ -1,0 +1,7023 @@
+---PAGE 1---
+
+
+
+
+
+
+
+
+
+
+
+
+Introduction | 1inch Network
+
+
+
+
+
+
+
+
+
+
+
+
+Skip to main content
+On this page
+The 1inch API v5, Pathfinder, is a cutting-edge discovery and routing algorithm, which offers asset exchanges at the best rates on the market. Pathfinder finds the most efficient paths for a token swap, able to split between different protocols and even different market depths in within one protocol in the shortest possible time.
+This API documentation is intended for public use. 
+If you are an enterprise with significant trading volumes please fill in the 
+form
+ so we can assign you a custom API endpoint. The enterprise endpoint will offer significantly better performance across market rates and response times.
+Quick start
+#
+In order to quickly understand how to make an exchange using the protocol, we suggest you take a quick course:
+
+Quick start
+Quick start
+
+
+
+
+
+
+
+
+
+---PAGE 2---
+
+
+
+
+
+
+
+
+
+
+
+
+1inch Network | Leading high capital efficient DeFi protocols
+
+
+
+
+
+
+
+
+
+
+
+
+Skip to main content
+Protocols
+Aggregation Protocol V5
+The 1inch Aggregation Protocol facilitates cost-efficient and secure swap transactions across multiple liquidity sources
+Introduction
+Dune analytics
+Smart contract v4
+Smart contract v5
+Enterprise API
+API
+Swagger
+Limit Order Protocol V3
+The 1inch Limit Order Protocol facilitates the most innovative and flexible limit order swap opportunities in DeFi
+Introduction
+Dune analytics
+Smart contract
+API
+Swagger
+Spot price aggregator
+The 1inch spot price aggregator is a set of smart contracts that extract price data for tokens traded on DEXes from the blockchain
+Introduction
+Github
+Smart contract
+1inch Fusion mode
+1inch Fusion Mode offer users a way to execute swaps without gas spend and risks of being front-run.
+Introduction
+How to become a resolver
+Resolver’s setup script example
+Contract interaction
+Developer links
+Grants program
+Incentivizing individual developers and teams to build on the 1inch Network's protocols and contribute to protocol evolution. 
+Read more
+Apply for Grant
+Bug bounty program
+Offering monetary rewards to "white hats" for successfully discovering and reporting vulnerabilities or bugs in 1inch Network protocols and products. 
+Report a Bug
+1inch dApp
+An entry point to the 1inch Network's tech. The 1inch dApp is #1 DeFi aggregator, offering access to the most liquidity and the best token swap rates on various DEXes, with unique features, including partial fill, the Chi gas token and the ability to find the best swap paths across multiple liquidity sources.
+Launch dApp
+Protocols
+Liquidity Protocol
+Aggregation Protocol
+Limit Order Protocol
+Governance
+1inch DAO
+1INCH token
+Forum
+Support
+Help center
+API
+Press room
+Terms of service
+Privacy policy
+Subscribe to 1inch newsletter
+Get the latest news and updates
+Subscribe
+© 2023 1inch, All Rights Reserved.
+ENS: 1inch.eth
+BUIDL @ETHNewYork 2019
+
+
+
+
+
+
+
+
+
+---PAGE 3---
+
+
+
+
+
+
+
+
+
+
+
+
+Introduction | 1inch Network
+
+
+
+
+
+
+
+
+
+
+
+
+Skip to main content
+On this page
+The 1inch API v5, Pathfinder, is a cutting-edge discovery and routing algorithm, which offers asset exchanges at the best rates on the market. Pathfinder finds the most efficient paths for a token swap, able to split between different protocols and even different market depths in within one protocol in the shortest possible time.
+This API documentation is intended for public use. 
+If you are an enterprise with significant trading volumes please fill in the 
+form
+ so we can assign you a custom API endpoint. The enterprise endpoint will offer significantly better performance across market rates and response times.
+Quick start
+#
+In order to quickly understand how to make an exchange using the protocol, we suggest you take a quick course:
+
+Quick start
+Quick start
+
+
+
+
+
+
+
+
+
+---PAGE 4---
+
+
+
+
+
+
+
+
+
+
+
+
+Introduction | 1inch Network
+
+
+
+
+
+
+
+
+
+
+
+
+Skip to main content
+On this page
+1inch limit order protocol is a set of smart contracts, that can work on any EVM based blockchains
+(Ethereum, Binance Smart Chain, Polygon, Arbitrum, Optimism, Gnosis chain, Avalanche). Key features of the protocol is 
+extreme flexibility
+ and high 
+gas efficiency
+ that achieved by using two different order types - regular 
+Limit Order
+ and 
+RFQ Order
+.
+Smart Contract allows users to place limit orders and RFQ Orders, that later could be filled on-chain.
+Both type of orders is a data structure created off-chain and signed according to 
+EIP-712
+.
+I. Limit order
+#
+A limit order is a financial instrument with which you can put up an ERC-20 token for sale at a fixed price.
+
+For example, you can put up 2 WBTC tokens for sale at the price of 82415 DAI tokens.
+1inch limit orders protocol has many tools for flexible trade management:
+Partial fill
+Predicates
+Single cancellation
+Bunch cancellation
+Fullness check
+Validation
+Note:
+ For market making, there are 
+RFQ orders
+ that have special optimization that does not require a large amount of gas for execution.
+Limit order execution
+#
+1inch users can place their limit orders via 1inch 
+dApp
+.
+Anyone can fetch this signed orders using 
+1inch Limit Orders Liquidity Source API
+ to perform trade by filling order on-chain.
+To do that he or she pass signed order to the 
+fillOrder
+ method on the contract:
+Latest addresses is always 
+here
+Note:
+ Trades buyer and seller should approve their asset to be used by 1inch limit order contract.
+Pathfinder algorithm use limit orders placed via 
+dApp
+ and REST API, as a liquidity source, and make it available to fill to any 1inch user.
+So, 1inch limit orders are integrated into the DeFi ecosystem from the day one.
+Limit orders are extremely 
+flexible
+ limit order, can be configured with:
+Order execution predicate.
+Typical usage is checking that certain time stamp or block number. With this you can set certain expiration time.
+You can specify construct any predicate that you want, for example check that certain price is higher than oracle price, to implement stop loss or take profit stategies
+Helper function for asset price evaluation.
+Function that will allow to extract assets price from arbitrary on-chain source
+Callback, for to notify maker on order execution.
+II. RFQ order
+#
+A request for quotation (RFQ)
+ is a business process in which a customer requests a quote from a supplier (market maker) for the purchase of some tokens.
+RFQ orders have different use cases, and are dedicated to market makers in the first place. The typical scenario is following:
+Market maker creates a bunch of RFQ Orders, and exposes it via the API.
+Trader or the platform algorithm ask for market maker quotes. If the quotes match traders' needs, the trader receives signed RFQ order from the market maker.
+Gas optimized order
+ with restricted capabilities suitable 
+for market makers
+Supports expiration time
+Supports cancelation by order id
+RFQ Order could be filled only once
+Partial Fill is possible (once)
+Supported tokens
+#
+ERC 20
+ERC 721
+ERC 1155
+Other token standards could be supported via external extension
+More resources
+#
+You can use it right in 
+1inch dApp
+Smart Contracts 
+repository
+Utils library 
+repository
+I. Limit order
+Limit order execution
+II. RFQ order
+Supported tokens
+More resources
+
+
+
+
+
+
+
+
+
+---PAGE 5---
+
+
+
+
+
+
+
+
+
+
+
+
+Introduction | 1inch Network
+
+
+
+
+
+
+
+
+
+
+
+
+Skip to main content
+On this page
+The 1inch spot price aggregator is a set of smart contracts that extract price data for tokens traded on DEXes from the blockchain. To avoid price manipulations within a transaction, the spot price aggregator should ONLY be used off-chain. DO NOT use it on-chain. For off-chain usage see 
+Examples
+ section below.
+Wrappers
+#
+To handle wrapped tokens, such as wETH, cDAI, aDAI etc., the 1inch spot price aggregator uses custom wrapper smart contracts that wrap/unwrap tokens at the current wrapping exchange rate.
+Connectors
+#
+If no direct liquidity pair exists between two tokens, the spot price aggregator calculates rates for those coins using another token that has pairs with both of them – a connector token.
+Supported Deployments
+#
+Ethereum Mainnet
+#
+Oracle 
+0x07D91f5fb9Bf7798734C3f606dB065549F6893bb
+#
+Supported DEXes
+#
+Mooniswap
+1inch Liquidity Protocol V1.1
+Uniswap V1
+Uniswap V2
+Sushiswap
+Equalizer.fi
+Uniswap V3
+Synthetix
+Chainlink
+Shibaswap
+Hashflow
+Supported wrappers
+#
+Aave V1
+Aave V2
+Compound
+Fulcrum V1
+Fulcrum V2
+WETH
+Cream
+Supported connectors
+#
+ETH
+WETH
+DAI
+USDC
+USDT
+WBTC
+1INCH
+Binance Smart Chain
+#
+Oracle 
+0xfbD61B037C325b959c0F6A7e69D8f37770C2c550
+#
+Supported DEXes
+#
+1inch Liquidity Protocol V1.1
+Pancakeswap
+Streetswap
+Bakeryswap
+Julswap
+Demaxswap
+Supported wrappers
+#
+Venus
+WBNB
+Supported connectors
+#
+BNB
+WBNB
+ETH
+DAI
+USDC
+USDT
+BUSD
+Polygon
+#
+Oracle 
+0x7F069df72b7A39bCE9806e3AfaF579E54D8CF2b9
+#
+Supported DEXes
+#
+QuickSwap
+ComethSwap
+SushiSwap
+Dfyn
+Supported wrappers
+#
+AAVE
+WMATIC
+Supported connectors
+#
+MATIC
+WMATIC
+Kovan
+#
+Oracle 
+0x29BC86Ad68bB3BD3d54841a8522e0020C1882C22
+#
+Supported DEXes
+#
+1inch Liquidity Protocol V1.1
+Uniswap V2
+Uniswap V1
+Supported wrappers
+#
+Venus
+WETH
+Supported connectors
+#
+ETH
+WETH
+Optimism
+#
+Oracle 
+0x11DEE30E710B8d4a8630392781Cc3c0046365d4c
+#
+Supported DEXes
+#
+Uniswap V3
+Synthetix
+Arbitrum
+#
+Oracle 
+0x735247fb0a604c0adC6cab38ACE16D0DbA31295F
+#
+Supported DEXes
+#
+Uniswap V3
+Sushiswap
+Swapr
+Avalanche
+#
+Oracle 
+0xBd0c7AaF0bF082712EbE919a9dD94b2d978f79A9
+#
+Supported DEXes
+#
+Trader Joe
+Pangolin Exchange
+Gnosis
+#
+Oracle 
+0x142DB045195CEcaBe415161e1dF1CF0337A4d02E
+#
+Supported DEXes
+#
+Honeyswap
+Levinswap
+Swapr
+Sushiswap
+Wrappers
+Connectors
+Supported Deployments
+Ethereum Mainnet
+Binance Smart Chain
+Polygon
+Kovan
+Optimism
+Arbitrum
+Avalanche
+Gnosis
+
+
+
+
+
+
+
+
+
+---PAGE 6---
+
+
+
+
+
+
+
+
+
+
+
+
+Introduction | 1inch Network
+
+
+
+
+
+
+
+
+
+
+
+
+Skip to main content
+On this page
+Overview
+#
+1inch Fusion Mode offer users a way to execute swaps without gas spend and risks of being front-run. Fusion Mode looks like a swap for a user but technically it is a limit order with a variable exchange rate filled by a third-party called Resolver. An order’s exchange rate is decreasing from desired rate to minimal return amount (Dutch auction) until it becomes profitable for Resolvers to fill the order. Multiple resolvers compete for the order to ensure it is filled before the rate falls to minimal return amount.
+Below are the examples of opportunities to gain profit for resolvers:
+Dutch auction decreases order rate constantly;
+Gas economy when filling matching orders;
+Gas economy due to batch filling;
+Dutch auction filling rate
+#
+Each order has an auction start timestamp, which is the time at which the order's auction begins. The auction start timestamp is defined as the order's signature timestamp plus a waiting period. The waiting period is a delay which is set compensate different block generation speed on different networks. Before the auction starts, an order can be filled at the auction start rate, which is the maximum rate that a user can receive. After the auction begins, the order filling rate decreases over time.
+The order filling rate is a piecewise linear function that depends on multiple parameters, such as swap volume, gas costs, and the chosen preset (e.g., fast, fair, auction). It is calculated separately for each order and typically contains two breaking points that divide it into three intervals for fast preset, and three breaking points for fair and auction presets. The example logic for fast preset. the rate is decreased by
+1st interval: estimated gas costs (first block);
+2nd interval: 1/6 of estimated gas costs each block (2/3 of the auction time);
+3rd interval: linearly to the min return value (the rest of auction time);
+Depending on the market state, swap volumes, and order expiration time, there may be fewer than two breaking points (e.g., swap 30 dollars at a time of high gas costs).
+The logic and algorithms used to build the curve aim to maximize return for the user while still maintaining order fillability, and they are constantly improving.
+Below are some real-life examples
+Overview
+Dutch auction filling rate
+
+
+
+
+
+
+
+
+
+---PAGE 7---
+
+
+
+
+
+
+
+
+
+
+
+
+Overview | 1inch Network
+
+
+
+
+
+
+
+
+
+
+
+
+Skip to main content
+1inch Network DAO is a decentralized autonomous organization that governs the 1inch Network. DAO governance decisions can range from allocating Treasury funds for a particular proposal, to deploying a new protocol on the 1inch Network, and everything in between.
+The creation of the 1inch Network DAO marked the move towards full-fledged DAO functionality, providing the community direct control over extended governance mechanisms. All participants in the DAO are working towards a common goal: 1inch Network protocols and the 1INCH token to be completely decentralized, owned and governed by the DAO.
+1INCH token is the governance token of the 1inch Network DAO. Anyone may participate in the DAO’s discussions, however only users with 1inch governance tokens may vote on proposals. To ensure that all participants in the governance process have a vested interest in the success of the project, holders of 1INCH must first deposit it in the staking contract (see 
+Voting Process
+).
+
+
+
+
+
+
+
+
+
+---PAGE 8---
+
+
+
+
+
+
+
+
+
+
+
+
+1inch Network Overview | 1inch Network
+
+
+
+
+
+
+
+
+
+
+
+
+Skip to main content
+On this page
+What is the 1inch Network?
+#
+The 1inch Network (
+https://1inch.io/
+) unites decentralized protocols whose synergy enables the most lucrative, fastest, and protected operations in the DeFi space by offering access to hundreds of liquidity sources across multiple chains. The 1inch Network was launched at the ETHGlobal New York hackathon in May 2019 with the release of its Aggregation Protocol v1. Since then, 1inch Network has developed additional DeFi tools such as the Liquidity Protocol, Limit Order Protocol, P2P transactions, and 1inch Mobile Wallet.
+1inch dApp
+ – a web-based application that is connected to all supported blockchains via smart contracts. The dApp offers access to deep aggregated liquidity and competitive token swap rates on various DEXes, with unique features, including partial fill and the ability to find the best swap paths across multiple liquidity sources.
+1inch Aggregation Protocol
+ – the 1inch API v5, Pathfinder, is a cutting-edge discovery and routing algorithm, which offers asset exchanges at the best rates on the market. Pathfinder finds the most efficient paths for a token swap, able to split between different protocols and even different market depths within one protocol in the shortest possible time.
+1inch Liquidity Protocol
+ – 1inch Liquidity protocol (previously called Mooniswap) is an AMM that aims to offer capital-efficient liquidity positions while protecting users from front-running.
+1inch Limit Order Protocol
+ – 1inch Limit Order Protocol is a set of smart contracts that allows users to place limit orders, and RFQ Orders, which later can be filled on-chain. Both types of orders are a data structure created off-chain and signed according to EIP-712. Key features of the protocol are extreme flexibility and high gas efficiency. Thanks to the gasless limit order feature, an entry threshold for new users of 1inch protocols became significantly lower.
+P2P Transactions
+ – 1inch Peer-to-Peer allows two users to make an over-the-counter style trade of any ERC20 token.
+1inch Mobile Wallet
+ – The 1inch Wallet is a non-custodial crypto wallet with the best swap rates and the swiftest web3 browsing experience. Available both on iOS and Android.
+Supported Networks
+ – 1inch protocols are deployed on the following Ethereum Virtual Machine (EVM) networks: Ethereum, BNB Chain, Polygon, Arbitrum, Optimism, Gnosis Chain, Avalanche, Klaytn, Aurora and Fantom.
+1inch Foundation, 1inch core contributors, 1inch DAO
+#
+The 1inch Network is composed of three distinct groups of stakeholders: the 1inch Foundation, the 1inch core contributors, and the 1inch DAO. All stakeholders are working towards the common goal of growing the 1inch Network in a decentralized manner.
+Though they share a common goal, each group operates totally independently. For example, the DAO can signal to the Foundation that they want to see certain changes. However, if the Foundation cannot implement these changes for whatever reason, the DAO will need to fund the development and implementation of these changes themselves.
+1inch Foundation
+#
+The 1inch Foundation is an independent non-profit organization. Its mission is to foster the 1inch Network’s growth and support initiatives that benefit the 1inch Network's community. The 1inch Foundation issued the 1INCH token, but the 1inch DAO has control over the token smart contract in the 1inch Network. As part of its mission, the 1inch Foundation is focused on, among others, the following areas:
+Ownership and control of the 1inch.io domain name, and 1inch front-end;
+Ownership and control of the 1inch: Crypto DeFi Wallet;
+Maximizing the 1inch Network’s decentralization;
+Growing the number of stakeholders and governance participants;
+Incentivizing developers to build on top of 1inch Network’s protocols;
+Grant issuance;
+Farming programs and gas refunds;
+Network research and analytics;
+Integrations that increase usage of the 1inch Network;
+Organizing events; and
+Education.
+To finance these goals, the 1inch Foundation maintains control of its own funds (separate from the DAO treasury).
+1inch core contributors
+#
+The 1inch core contributors are a decentralized group of 1inch Network technical contributors dedicated to building out the 1inch Network. Among the technical contributors, the largest contributor is 1inch Labs. 1inch Labs concentrates on, among others, the following areas:
+Providing general software development services for the 1inch Network and others;
+Maintaining the 1inch Pathfinder algorithm and API; and
+Serving as a SaaS (software as a service) provider of its Pathfinder algorithm for certain enterprise clients.
+1inch DAO
+#
+The 1inch DAO is the decentralized autonomous organization that governs the 1inch Network through a set of onchain smart contracts. Voting on the DAO is through the 1INCH token, a governance token, that was initially distributed to the community of 1inch Network users in late 2020. The 1inch DAO has control, among others, over the following:
+Liquidity Protocol Instant Governance;
+Aggregation Protocol Instant Governance;
+1INCH token;
+1inch Network revenue stream; and
+1inch Network DAO Treasury.
+In addition to the on-chain assets currently controlled by the DAO, it also has the ability to fund the development of modules/contracts and deploy them (e.g., alternative front-ends, new network deployments, new API integrations, integrations, new smart contract deployments, etc.).
+Since the 1inch DAO is structured in a trust-minimized fashion, all actions taken by the DAO require a vote from the 1INCH token holders.
+What is the 1inch Network?
+1inch Foundation, 1inch core contributors, 1inch DAO
+1inch Foundation
+1inch core contributors
+1inch DAO
+
+
+
+
+
+
+
+
+
+---PAGE 9---
+
+
+
+
+
+
+
+
+
+
+
+
+Order creation examples | 1inch Network
+
+
+
+
+
+
+
+
+
+
+
+
+Skip to main content
+On this page
+Through 
+@1inch/limit-order-protocol-utils
+#
+This is the recomended option!
+There is 
+JavaScript and Typescript compatible library
+ that solves everything for you, we taking care on it to make everything up to date and make you migration over Limit Order Protocol Versions as smooth as possible.
+See 
+docs on order creation
+See 
+library docs
+Python Example for 1inch Limit Order v3
+#
+To place a limit order in python requires more work since there's no library
+In this example the predicate only uses the timestamp to determine when the order should expire but there are many more functions that can be used for the predicate. See the 
+limit order protocol utils
+ github for more information.
+from
+ eth_account
+.
+messages 
+import
+ encode_structured_data
+from
+ web3 
+import
+ Web3
+import
+ requests
+import
+ time
+w3 
+=
+ Web3
+(
+Web3
+.
+HTTPProvider
+(
+"https://cloudflare-eth.com"
+)
+)
+  
+# you can customize the RPC
+wallet_key 
+=
+ 
+"..."
+ 
+# Your wallet private key without the leading 0x
+wallet_address 
+=
+ 
+"..."
+ 
+# Your wallet address
+limit_order_contract 
+=
+ 
+"0x1111111254EEB25477B68fb85Ed929f73A960582"
+ 
+# the limit order contract (now the same as the 1inch v5 router)
+chain_id 
+=
+ 
+1
+ 
+# the chain id of the network you are using ##didn't exist in the previoius version
+ETHERSCAN_API_KEY 
+=
+ 
+"yourapikeytoken"
+ 
+# Etherscan API key, this may not be required or should be changed if the ABIs are changed to literals or a different blockchain API is used like api.bscscan.com or api.polygonscan.com
+
+
+#create the limit order contract instance
+limit_order_contract_abi_response 
+=
+ requests
+.
+get
+(
+f"https://api.etherscan.io/api?module=contract&action=getabi&address=
+{
+limit_order_contract
+}
+&apikey=
+{
+ETHERSCAN_API_KEY
+}
+"
+)
+limit_order_contract_abi 
+=
+ limit_order_contract_abi_response
+.
+json
+(
+)
+[
+"result"
+]
+limit_order_contract_instance 
+=
+ w3
+.
+eth
+.
+contract
+(
+address
+=
+limit_order_contract
+,
+ abi
+=
+limit_order_contract_abi
+)
+
+
+# wait 5 seconds to avoid rate limiting
+time
+.
+sleep
+(
+5
+)
+
+
+# get the token addresses for the tokens you want to trade
+erc20_abi_response 
+=
+ requests
+.
+get
+(
+f"https://api.etherscan.io/api?module=contract&action=getabi&address=0x6b175474e89094c44da98b954eedeac495271d0f&apikey=
+{
+ETHERSCAN_API_KEY
+}
+"
+)
+erc20_abi 
+=
+ erc20_abi_response
+.
+json
+(
+)
+[
+"result"
+]
+
+
+#here is were we define parameters for the limit order
+makerAddress 
+=
+ Web3
+.
+toChecksumAddress
+(
+wallet_address
+)
+ 
+# the address of the wallet that will be the maker of the order
+takerAddress 
+=
+ Web3
+.
+toChecksumAddress
+(
+"0x0000000000000000000000000000000000000000"
+)
+ 
+# the address of the taker, if it's address(0) then it's a public order
+makerAsset 
+=
+ Web3
+.
+toChecksumAddress
+(
+"0x6b175474e89094c44da98b954eedeac495271d0f"
+)
+ 
+# the address of the token you want to sell
+takerAsset 
+=
+ Web3
+.
+toChecksumAddress
+(
+"0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
+)
+ 
+# the address of the token you want to buy
+makerAmount 
+=
+ 
+1000
+ 
+# the amount of the token you want to sell in wei
+takerAmount 
+=
+ 
+1000000000000000000
+ 
+# the amount of the token you want to buy in wei
+
+
+makerAssetContract 
+=
+ w3
+.
+eth
+.
+contract
+(
+address
+=
+makerAsset
+,
+ abi
+=
+erc20_abi
+)
+takerAssetContract 
+=
+ w3
+.
+eth
+.
+contract
+(
+address
+=
+takerAsset
+,
+ abi
+=
+erc20_abi
+)
+
+
+# other order parameters
+makerAssetData 
+=
+ 
+'0x'
+ 
+takerAssetData 
+=
+ 
+'0x'
+ 
+getMakingAmount 
+=
+ 
+'0x'
+getTakingAmount 
+=
+ 
+'0x'
+expiration 
+=
+ 
+5444440000
+ 
+# some time in the future
+nonce 
+=
+ 
+0
+ 
+# the nonce of the order, used to be able to cancel all orders that have the same nonce by increasing the addresses' nonce
+seriesNonceManagerContractAddress 
+=
+ w3
+.
+toChecksumAddress
+(
+'0x303389f541ff2d620e42832f180a08e767b28e10'
+)
+ 
+# https://github.com/1inch/limit-order-protocol-utils/blob/fdbb559509eeb6e22e2697cccb22887d69617652/src/series-nonce-manager.const.ts
+seriesNonceManagerABI_response 
+=
+ requests
+.
+get
+(
+f"https://api.etherscan.io/api?module=contract&action=getabi&address=
+{
+seriesNonceManagerContractAddress
+}
+&apikey=
+{
+ETHERSCAN_API_KEY
+}
+"
+)
+seriesNonceManagerABI 
+=
+ 
+[
+{
+"inputs"
+:
+[
+]
+,
+"name"
+:
+"AdvanceNonceFailed"
+,
+"type"
+:
+"error"
+}
+,
+{
+"anonymous"
+:
+False
+,
+"inputs"
+:
+[
+{
+"indexed"
+:
+True
+,
+"internalType"
+:
+"address"
+,
+"name"
+:
+"maker"
+,
+"type"
+:
+"address"
+}
+,
+{
+"indexed"
+:
+False
+,
+"internalType"
+:
+"uint256"
+,
+"name"
+:
+"series"
+,
+"type"
+:
+"uint256"
+}
+,
+{
+"indexed"
+:
+False
+,
+"internalType"
+:
+"uint256"
+,
+"name"
+:
+"newNonce"
+,
+"type"
+:
+"uint256"
+}
+]
+,
+"name"
+:
+"NonceIncreased"
+,
+"type"
+:
+"event"
+}
+,
+{
+"inputs"
+:
+[
+{
+"internalType"
+:
+"uint256"
+,
+"name"
+:
+"series"
+,
+"type"
+:
+"uint256"
+}
+,
+{
+"internalType"
+:
+"uint256"
+,
+"name"
+:
+"amount"
+,
+"type"
+:
+"uint256"
+}
+]
+,
+"name"
+:
+"advanceNonce"
+,
+"outputs"
+:
+[
+]
+,
+"stateMutability"
+:
+"nonpayable"
+,
+"type"
+:
+"function"
+}
+,
+{
+"inputs"
+:
+[
+{
+"internalType"
+:
+"uint8"
+,
+"name"
+:
+"series"
+,
+"type"
+:
+"uint8"
+}
+]
+,
+"name"
+:
+"increaseNonce"
+,
+"outputs"
+:
+[
+]
+,
+"stateMutability"
+:
+"nonpayable"
+,
+"type"
+:
+"function"
+}
+,
+{
+"inputs"
+:
+[
+{
+"internalType"
+:
+"uint256"
+,
+"name"
+:
+""
+,
+"type"
+:
+"uint256"
+}
+,
+{
+"internalType"
+:
+"address"
+,
+"name"
+:
+""
+,
+"type"
+:
+"address"
+}
+]
+,
+"name"
+:
+"nonce"
+,
+"outputs"
+:
+[
+{
+"internalType"
+:
+"uint256"
+,
+"name"
+:
+""
+,
+"type"
+:
+"uint256"
+}
+]
+,
+"stateMutability"
+:
+"view"
+,
+"type"
+:
+"function"
+}
+,
+{
+"inputs"
+:
+[
+{
+"internalType"
+:
+"uint256"
+,
+"name"
+:
+"series"
+,
+"type"
+:
+"uint256"
+}
+,
+{
+"internalType"
+:
+"address"
+,
+"name"
+:
+"makerAddress"
+,
+"type"
+:
+"address"
+}
+,
+{
+"internalType"
+:
+"uint256"
+,
+"name"
+:
+"makerNonce"
+,
+"type"
+:
+"uint256"
+}
+]
+,
+"name"
+:
+"nonceEquals"
+,
+"outputs"
+:
+[
+{
+"internalType"
+:
+"bool"
+,
+"name"
+:
+""
+,
+"type"
+:
+"bool"
+}
+]
+,
+"stateMutability"
+:
+"view"
+,
+"type"
+:
+"function"
+}
+,
+{
+"inputs"
+:
+[
+{
+"internalType"
+:
+"uint256"
+,
+"name"
+:
+"time"
+,
+"type"
+:
+"uint256"
+}
+]
+,
+"name"
+:
+"timestampBelow"
+,
+"outputs"
+:
+[
+{
+"internalType"
+:
+"bool"
+,
+"name"
+:
+""
+,
+"type"
+:
+"bool"
+}
+]
+,
+"stateMutability"
+:
+"view"
+,
+"type"
+:
+"function"
+}
+,
+{
+"inputs"
+:
+[
+{
+"internalType"
+:
+"uint256"
+,
+"name"
+:
+"timeNonceSeriesAccount"
+,
+"type"
+:
+"uint256"
+}
+]
+,
+"name"
+:
+"timestampBelowAndNonceEquals"
+,
+"outputs"
+:
+[
+{
+"internalType"
+:
+"bool"
+,
+"name"
+:
+""
+,
+"type"
+:
+"bool"
+}
+]
+,
+"stateMutability"
+:
+"view"
+,
+"type"
+:
+"function"
+}
+]
+seriesNonceManagerInstance 
+=
+ w3
+.
+eth
+.
+contract
+(
+address
+=
+seriesNonceManagerContractAddress
+,
+ abi
+=
+seriesNonceManagerABI
+)
+Copy
+One of the breaking changes with v3 was the addition of the offsets parameter and the packing of the interactions
+# this data will be all packed into the Interactions parameter
+series 
+=
+ 
+0
+ 
+# 0 is limit order 1 is p2p order
+nonceManagerCalldata 
+=
+ seriesNonceManagerInstance
+.
+encodeABI
+(
+fn_name
+=
+"timestampBelow"
+,
+ args
+=
+[
+expiration
+]
+)
+predicate 
+=
+ limit_order_contract_instance
+.
+encodeABI
+(
+fn_name
+=
+"arbitraryStaticCall"
+,
+ args
+=
+[
+seriesNonceManagerContractAddress
+,
+ nonceManagerCalldata
+]
+ 
+)
+permit 
+=
+ 
+'0x'
+ 
+# this would be used to add an EIP 712 permit to the order
+preInteraction 
+=
+ 
+'0x'
+ 
+# this would be used to add a pre-interaction to the order
+postInteraction 
+=
+ 
+'0x'
+ 
+# this would be used to add a post-interaction to the order, for example unwrapping wETH to ETH
+
+
+all_interactions 
+=
+ 
+[
+makerAssetData
+,
+ takerAssetData
+,
+ getMakingAmount
+,
+ getTakingAmount
+,
+ predicate
+,
+ permit
+,
+ preInteraction
+,
+ postInteraction
+]
+
+
+# this function will calculate the offsets for the interactions
+def
+ 
+getOffsets
+(
+interactions
+)
+:
+    lenghtMap 
+=
+ 
+[
+]
+    
+for
+ interaction 
+in
+ interactions
+:
+        
+if
+ interaction
+[
+0
+:
+2
+]
+ 
+==
+ 
+"0x"
+:
+            lenghtMap
+.
+append
+(
+int
+(
+len
+(
+interaction
+)
+/
+2
+ 
+-
+ 
+1
+)
+)
+        
+else
+:
+            lenghtMap
+.
+append
+(
+int
+(
+len
+(
+interaction
+)
+/
+2
+)
+)
+    cumulativeSum 
+=
+ 
+0
+    bytesAccumularot 
+=
+ 
+0
+    index 
+=
+ 
+0
+    UINT32_BITS 
+=
+ 
+32
+    
+# print(lenghtMap)
+    
+for
+ lenght 
+in
+ lenghtMap
+:
+    
+        cumulativeSum 
++=
+ lenght
+        
+# bytesAccumularot + (BigInt(offset) << ((exports.UINT32_BITS * BigInt(index))));
+        
+# print(str(bytesAccumularot) + " + (" + str(cumulativeSum) + " << (" + str(UINT32_BITS) + " * " + str(index) + "))")
+        bytesAccumularot 
++=
+ cumulativeSum 
+<<
+ 
+(
+UINT32_BITS 
+*
+ index
+)
+        index 
++=
+ 
+1
+    offsets 
+=
+ bytesAccumularot 
+#hex(bytesAccumularot)
+    
+return
+ offsets
+
+
+offsets 
+=
+ getOffsets
+(
+all_interactions
+)
+
+
+def
+ 
+trim0x
+(
+hexString
+)
+:
+    
+if
+ hexString
+[
+0
+:
+2
+]
+ 
+==
+ 
+'0x'
+:
+        
+return
+ hexString
+[
+2
+:
+]
+    
+return
+ hexString
+
+
+interactions 
+=
+ 
+"0x"
+for
+ interaction 
+in
+ all_interactions
+:
+    interactions 
+=
+ interactions 
++
+ trim0x
+(
+interaction
+)
+Copy
+a limit order can't be signed properly if all the types are strings here we define what each field is and the type it should be
+
+
+order_data 
+=
+ 
+{
+    
+"salt"
+:
+ 
+0
+,
+    
+"makerAsset"
+:
+ makerAsset
+,
+    
+"takerAsset"
+:
+ takerAsset
+,
+    
+"maker"
+:
+ makerAddress
+,
+    
+"receiver"
+:
+ takerAddress
+,
+    
+"allowedSender"
+:
+ 
+"0x0000000000000000000000000000000000000000"
+,
+    
+"makerAmount"
+:
+ makerAmount
+,
+    
+"takerAmount"
+:
+ takerAmount
+,
+    
+"offsets"
+:
+ offsets
+,
+    
+"interactions"
+:
+ interactions
+}
+
+
+order_types 
+=
+ 
+[
+    
+{
+"name"
+:
+ 
+"salt"
+,
+ 
+"type"
+:
+ 
+"uint256"
+}
+,
+    
+{
+"name"
+:
+ 
+"makerAsset"
+,
+ 
+"type"
+:
+ 
+"address"
+}
+,
+    
+{
+"name"
+:
+ 
+"takerAsset"
+,
+ 
+"type"
+:
+ 
+"address"
+}
+,
+    
+{
+"name"
+:
+ 
+"maker"
+,
+ 
+"type"
+:
+ 
+"address"
+}
+,
+    
+{
+"name"
+:
+ 
+"receiver"
+,
+ 
+"type"
+:
+ 
+"address"
+}
+,
+    
+{
+"name"
+:
+ 
+"allowedSender"
+,
+ 
+"type"
+:
+ 
+"address"
+}
+,
+    
+{
+"name"
+:
+ 
+"makerAmount"
+,
+ 
+"type"
+:
+ 
+"uint256"
+}
+,
+    
+{
+"name"
+:
+ 
+"takerAmount"
+,
+ 
+"type"
+:
+ 
+"uint256"
+}
+,
+    
+{
+"name"
+:
+ 
+"offsets"
+,
+ 
+"type"
+:
+ 
+"uint256"
+}
+,
+    
+{
+"name"
+:
+ 
+"interactions"
+,
+ 
+"type"
+:
+ 
+"bytes"
+}
+,
+]
+
+
+# this function will fix the order_data to be a typed object instead of only strings
+def
+ 
+fix_data_types
+(
+data
+,
+ types
+)
+:
+    
+"""
+    Order data values are all strings as this is what the API expects. This function fixes their types for
+    encoding purposes.
+    """
+    fixed_data 
+=
+ 
+{
+}
+    
+for
+ dictionary 
+in
+ types
+:
+        
+if
+ 
+"bytes"
+ 
+in
+ dictionary
+[
+"type"
+]
+:
+            fixed_data
+[
+dictionary
+[
+"name"
+]
+]
+ 
+=
+ 
+(
+Web3
+.
+toBytes
+(
+hexstr
+=
+data
+[
+dictionary
+[
+"name"
+]
+]
+)
+)
+        
+elif
+ 
+"int"
+ 
+in
+ dictionary
+[
+"type"
+]
+:
+            fixed_data
+[
+dictionary
+[
+"name"
+]
+]
+ 
+=
+ 
+int
+(
+data
+[
+dictionary
+[
+"name"
+]
+]
+)
+        
+else
+:
+ 
+# address
+            fixed_data
+[
+dictionary
+[
+"name"
+]
+]
+ 
+=
+ data
+[
+dictionary
+[
+"name"
+]
+]
+    
+return
+ fixed_data
+
+
+# this is a typed data that the private key will be signing, it conforms to the EIP 712 standard
+eip712_data 
+=
+ 
+{
+    
+"primaryType"
+:
+ 
+"Order"
+,
+    
+"types"
+:
+ 
+{
+        
+"EIP712Domain"
+:
+ 
+[
+            
+{
+"name"
+:
+ 
+"name"
+,
+ 
+"type"
+:
+ 
+"string"
+}
+,
+            
+{
+"name"
+:
+ 
+"version"
+,
+ 
+"type"
+:
+ 
+"string"
+}
+,
+            
+{
+"name"
+:
+ 
+"chainId"
+,
+ 
+"type"
+:
+ 
+"uint256"
+}
+,
+            
+{
+"name"
+:
+ 
+"verifyingContract"
+,
+ 
+"type"
+:
+ 
+"address"
+}
+,
+        
+]
+,
+        
+"Order"
+:
+ order_types
+    
+}
+,
+    
+"domain"
+:
+ 
+{
+        
+"name"
+:
+ 
+"1inch Aggregation Router"
+,
+        
+"version"
+:
+ 
+"5"
+,
+        
+"chainId"
+:
+ chain_id
+,
+        
+"verifyingContract"
+:
+ 
+"0x1111111254eeb25477b68fb85ed929f73a960582"
+,
+    
+}
+,
+    
+"message"
+:
+ fix_data_types
+(
+order_data
+,
+ order_types
+)
+,
+}
+Copy
+Finally the private key will be used to sign the encoded data and broadcast to the API
+If you are having problems signing please run the following commands:
+
+pip install web3 --upgrade; pip install eth-account==0.6.1
+encoded_message 
+=
+ encode_structured_data
+(
+eip712_data
+)
+signed_message 
+=
+ w3
+.
+eth
+.
+account
+.
+sign_message
+(
+encoded_message
+,
+ wallet_key
+)
+# this is the limit order that will be broadcast to the limit order API
+limit_order 
+=
+ 
+{
+    
+"orderHash"
+:
+ signed_message
+.
+messageHash
+.
+hex
+(
+)
+,
+    
+"signature"
+:
+ signed_message
+.
+signature
+.
+hex
+(
+)
+,
+    
+"data"
+:
+ order_data
+,
+}
+
+
+limit_order_url 
+=
+ 
+"https://limit-orders.1inch.io/v3.0/"
++
+ 
+str
+(
+chain_id
+)
+ 
++
+"/limit-order"
+ 
+# make sure to change the chain_id if you are not using ETH mainnet
+response 
+=
+ requests
+.
+post
+(
+url
+=
+limit_order_url
+,
+headers
+=
+{
+"accept"
+:
+ 
+"application/json, text/plain, */*"
+,
+ 
+"content-type"
+:
+ 
+"application/json"
+}
+,
+ json
+=
+limit_order
+)
+# print the full response
+print
+(
+response
+.
+text
+)
+Copy
+Through 
+@1inch/limit-order-protocol-utils
+Python Example for 1inch Limit Order v3
+
+
+
+
+
+
+
+
+
+---PAGE 10---
+
+
+
+
+
+
+
+
+
+
+
+
+Breaking changes in V3 | 1inch Network
+
+
+
+
+
+
+
+
+
+
+
+
+Skip to main content
+On this page
+Limit Order Protocol
+ itself changes
+#
+Now contract is pubshed to npm as 
+@1inch/limit-order-protocol
+Order
+ struct has changed as following:
+struct Order {
+ 
+   uint256 salt;
+ 
+   address makerAsset;
+ 
+   address takerAsset;
+ 
+   address maker;
+ 
+   address receiver;
+ 
+   address allowedSender;  // equals to Zero address on public orders
+ 
+   uint256 makingAmount;
+ 
+   uint256 takingAmount;
+-
+   // Was in v2
+-
+   // bytes makerAssetData;
+-
+   // bytes takerAssetData;
+-
+   // bytes getMakingAmount; // this.staticcall(abi.encodePacked(bytes, swapTakerAmount)) => (swapMakerAmount)
+-
+   // bytes getTakingAmount; // this.staticcall(abi.encodePacked(bytes, swapMakerAmount)) => (swapTakerAmount)
+-
+   // bytes predicate;       // this.staticcall(bytes) => (bool)
+-
+   // bytes permit;          // On first fill: permit.1.call(abi.encodePacked(permit.selector, permit.2))
+-
+   // bytes interaction;
++
+   // Now in v3
++
+   uint256 offsets;
++
+   bytes interactions; // concat(makerAssetData, takerAssetData, getMakingAmount, getTakingAmount, predicate, permit, preIntercation, postInteraction)
+}
+Copy
+  where offset is bytes, where every 32's bytes represents offset of the n'ths interaction.
+  Eg: for 
+[2, 4, 6]
+ offsets:
+(
+2n
+ 
+<<
+ 
+32n
+ 
+*
+ 
+0n
+)
+ 
++
+ 
+(
+4n
+ 
+<<
+ 
+32n
+ 
+*
+ 
+1n
+)
+ 
++
+ 
+(
+6n
+ 
+<<
+ 
+32n
+ 
+*
+ 
+2n
+)
+// 0x000000060000000400000002
+Copy
+See 
+LimitOrderBuilder.joinStaticCalls()
+ and 
+LimitOrderBuilder.packInteractions()
+ utils for help.
+Order.interaction
+ is now 
+Order.postInteraction
+,
+as long as 
+Order.preInteraction
+ was added.
+New arguments for 
+fillOrder
+ and 
+fillOrderToWithPermit
+ methods
+function fillOrderToWithPermit(
+ 
+   OrderLib.Order calldata order,
+ 
+   bytes calldata signature,
++
+   bytes calldata interaction,
+ 
+   uint256 makingAmount,
+ 
+   uint256 takingAmount,
+-
+   uint256 thresholdAmount,
++
+   uint256 skipPermitAndThresholdAmount,
+ 
+   address target,
+ 
+   bytes calldata permit
+)
+Copy
+interaction
+ is pre-interaction in fact.
+skipPermit
+ is just 255'th byte of 
+skipPermitAndThresholdAmount
+, when rest of bytes is 
+thresholdAmount
+See 
+fillLimitOrder()
+, 
+fillOrderToWithPermit()
+ and 
+packSkipPermitAndThresholdAmount()
+ utils methods and helpers.
+Methods 
+eq
+, 
+lt
+, 
+gt
+, 
+nonceEquals
+ no more have address arguments. Use 
+arbitraryStaticCall
+ instead in case if you need read value from different smartcontract.
+limit-order-protocol-utils
+ library changes:
+#
+Now contract is pubshed to npm as 
+@1inch/limit-order-protocol-utils
+The 
+LimitOrderProtocolFacade
+#
+new 
+chainId
+ argument of LimitOrderProtocolFacade
+import import { ChainId } from '@1inch/limit-order-protocol-utils/model/limit-order-protocol.model';
+new LimitOrderProtocolFacade(
+ 
+   public readonly contractAddress: string,
++
+   private readonly chainId: ChainId | number,
+ 
+   public readonly providerConnector: ProviderConnector,
+)
+Copy
+LimitOrderProtocolFacade.fillLimitOrder
+ and 
+fillOrderToWithPermit
+ have more abilities now:
+fillOrderToWithPermit({
+ 
+   order,
+ 
+   signature,
+-
+   makerAmount,
++
+   makingAmount,
+-
+   takerAmount,
++
+   takingAmount,
+ 
+   thresholdAmount,
+ 
+   targetAddress,
+ 
+   permit,
++
+   interaction = ZX,
++
+   skipPermit = false,
+})
+Copy
+interaction
+ is pre-interaction in fact.
+skipPermit
+ wether to skip maker's permit evaluation if it was evaluated before.
+Useful if multiple orders was created with same nonce.  Tip: you can just check if allowance exsists and then set it to 
+true
+.
+simulateCalls(addresses[], calldatas[]): Promise<boolean>
+ no more avaible.
+simulate(address, calldata): Promise<{ success, rawResult }>
+ was introduced insted, so you don't need 
+catch
+ block anymore.
+The 
+LimitOrderBuilder
+#
+LimitOrderBuilder.buildLimitOrder
+ have more abilities now:
+buildLimitOrder({
+ 
+   makerAssetAddress,
+ 
+   takerAssetAddress,
+ 
+   makerAddress,
+ 
+   receiver = ZERO_ADDRESS,
+-
+   takerAddress = ZERO_ADDRESS,
++
+   allowedSender = ZERO_ADDRESS,
+-
+   makerAmount,
++
+   makingAmount,
+-
+   takerAmount,
++
+   takingAmount,
+ 
+   predicate = ZX,
+ 
+   permit = ZX,
++
+   getMakingAmount,
++
+   getTakingAmount,
+-
+   interaction = ZX,
++
+   postInteraction = ZX,
++
+   preInteraction = ZX,
++
+   salt = this.generateSalt(),
+}: LimitOrderData)
+Copy
+LimitOrderPredicateBuilder.timestampBelowAndNonceEquals
+ was added to reduce gas.
+-
+   const predicate = and(
+-
+       nonceEquals(
+-
+           walletAddress,
+-
+           currentNonce,
+-
+       ),
+-
+       timestampBelow(timestamp),
+-
+   );
++
+   const predicate = timestampBelowAndNonceEquals(
++
+       timestamp,
++
+       currentNonce,
++
+       walletAddress,
++
+   );
+Copy
+The 
+LimitOrderPredicateBuilder
+#
+LimitOrderPredicateBuilder.arbitraryStaticCall
+ was added to get values from other smartcontract.
+LimitOrderPredicateBuilder
+ members 
+eq
+, 
+lt
+, 
+gt
+, 
+nonceEquals
+ no more have address arguments. Use 
+arbitraryStaticCall
+ instead in case if you need read value from different smartcontract.
+Eg:
+eq
+(
+    nonce
+,
+    
+arbitraryStaticCall
+(
+SIDE_NONCE_MANAGER_ADDRESS
+,
+ callData
+)
+,
+)
+Copy
+The 
+SeriesNonceManagerFacade
+#
+Was added to help you manage different groups of "cancel all" nonces
+Limit Order Protocol itself changes
+limit-order-protocol-utils
+ library changes:
+The 
+LimitOrderProtocolFacade
+The 
+LimitOrderBuilder
+The 
+LimitOrderPredicateBuilder
+The 
+SeriesNonceManagerFacade
+
+
+
+
+
+
+
+
+
+---PAGE 11---
+
+
+
+
+
+
+
+
+
+
+
+
+Liquidity Source and API | 1inch Network
+
+
+
+
+
+
+
+
+
+
+
+
+Skip to main content
+On this page
+I. 
+1inch Aggregation Protocol
+#
+The protocol sources liquidity from various exchanges and is capable of splitting a single trade transaction across multiple DEXes to ensure the best rates.
+You can send your limit orders through Limit Orders API to the 1inch database and then your order will participate in the 1inch Aggregation Protocol.
+Docs
+.
+II. Limit Orders API
+#
+Allows you to directly publish orders and fetch listed orders.
+Ethereum
+Binance Smart Chain
+Polygon
+Optimism
+Arbitrum
+Fantom
+Gnosis chain
+Avalanche
+Klaytn
+Aurora
+Swagger module isn't available on mobile.
+You can access this page from desktop.
+I. 1inch Aggregation Protocol
+II. Limit Orders API
+
+
+
+
+
+
+
+
+
+---PAGE 12---
+
+
+
+
+
+
+
+
+
+
+
+
+Examples | 1inch Network
+
+
+
+
+
+
+
+
+
+
+
+
+Skip to main content
+On this page
+Single token-to-ETH price usage
+#
+const
+ 
+Web3
+ 
+=
+ 
+require
+(
+'web3'
+)
+;
+const
+ 
+{
+ 
+BigNumber
+ 
+}
+ 
+=
+ 
+require
+(
+'ethers'
+)
+;
+
+
+const
+ yourInfuraKey 
+=
+ 
+'add your key here'
+;
+const
+ web3 
+=
+ 
+new
+ 
+Web3
+(
+`
+https://mainnet.infura.io/v3/
+${
+yourInfuraKey
+}
+`
+)
+;
+
+
+// eslint-disable-next-line max-len
+const
+ 
+OffChainOracleAbi
+ 
+=
+ 
+'[{"inputs":[{"internalType":"contract MultiWrapper","name":"_multiWrapper","type":"address"},{"internalType":"contract IOracle[]","name":"existingOracles","type":"address[]"},{"internalType":"enum OffchainOracle.OracleType[]","name":"oracleTypes","type":"uint8[]"},{"internalType":"contract IERC20[]","name":"existingConnectors","type":"address[]"},{"internalType":"contract IERC20","name":"wBase","type":"address"}],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"contract IERC20","name":"connector","type":"address"}],"name":"ConnectorAdded","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"contract IERC20","name":"connector","type":"address"}],"name":"ConnectorRemoved","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"contract MultiWrapper","name":"multiWrapper","type":"address"}],"name":"MultiWrapperUpdated","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"contract IOracle","name":"oracle","type":"address"},{"indexed":false,"internalType":"enum OffchainOracle.OracleType","name":"oracleType","type":"uint8"}],"name":"OracleAdded","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"contract IOracle","name":"oracle","type":"address"},{"indexed":false,"internalType":"enum OffchainOracle.OracleType","name":"oracleType","type":"uint8"}],"name":"OracleRemoved","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"inputs":[{"internalType":"contract IERC20","name":"connector","type":"address"}],"name":"addConnector","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"contract IOracle","name":"oracle","type":"address"},{"internalType":"enum OffchainOracle.OracleType","name":"oracleKind","type":"uint8"}],"name":"addOracle","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"connectors","outputs":[{"internalType":"contract IERC20[]","name":"allConnectors","type":"address[]"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"contract IERC20","name":"srcToken","type":"address"},{"internalType":"contract IERC20","name":"dstToken","type":"address"},{"internalType":"bool","name":"useWrappers","type":"bool"}],"name":"getRate","outputs":[{"internalType":"uint256","name":"weightedRate","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"contract IERC20","name":"srcToken","type":"address"},{"internalType":"bool","name":"useSrcWrappers","type":"bool"}],"name":"getRateToEth","outputs":[{"internalType":"uint256","name":"weightedRate","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"multiWrapper","outputs":[{"internalType":"contract MultiWrapper","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"oracles","outputs":[{"internalType":"contract IOracle[]","name":"allOracles","type":"address[]"},{"internalType":"enum OffchainOracle.OracleType[]","name":"oracleTypes","type":"uint8[]"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"contract IERC20","name":"connector","type":"address"}],"name":"removeConnector","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"contract IOracle","name":"oracle","type":"address"},{"internalType":"enum OffchainOracle.OracleType","name":"oracleKind","type":"uint8"}],"name":"removeOracle","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"renounceOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"contract MultiWrapper","name":"_multiWrapper","type":"address"}],"name":"setMultiWrapper","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"}]'
+;
+const
+ offChainOracleAddress 
+=
+ 
+'0x07D91f5fb9Bf7798734C3f606dB065549F6893bb'
+;
+const
+ offChainOracleContract 
+=
+ 
+new
+ 
+web3
+.
+eth
+.
+Contract
+(
+JSON
+.
+parse
+(
+OffChainOracleAbi
+)
+,
+ offChainOracleAddress
+)
+;
+
+
+const
+ token 
+=
+ 
+{
+    address
+:
+ 
+'0xdac17f958d2ee523a2206206994597c13d831ec7'
+,
+ 
+// USDT
+    decimals
+:
+ 
+6
+,
+}
+;
+
+
+offChainOracleContract
+.
+methods
+.
+getRateToEth
+(
+    token
+.
+address
+,
+ 
+// source token
+    
+true
+,
+ 
+// use source wrappers
+)
+.
+call
+(
+)
+    
+.
+then
+(
+(
+rate
+)
+ 
+=>
+ 
+{
+        
+const
+ numerator 
+=
+ 
+BigNumber
+.
+from
+(
+10
+)
+.
+pow
+(
+token
+.
+decimals
+)
+;
+        
+const
+ denominator 
+=
+ 
+BigNumber
+.
+from
+(
+10
+)
+.
+pow
+(
+18
+)
+;
+ 
+// eth decimals
+        
+const
+ price 
+=
+ 
+BigNumber
+.
+from
+(
+rate
+)
+.
+mul
+(
+numerator
+)
+.
+div
+(
+denominator
+)
+;
+        
+console
+.
+log
+(
+price
+.
+toString
+(
+)
+)
+;
+ 
+// 472685293218315
+    
+}
+)
+    
+.
+catch
+(
+console
+.
+log
+)
+;
+Copy
+Multiple token-to-ETH prices usage
+#
+const
+ 
+Web3
+ 
+=
+ 
+require
+(
+'web3'
+)
+;
+const
+ 
+{
+ 
+BigNumber
+ 
+}
+ 
+=
+ 
+require
+(
+'ethers'
+)
+;
+
+
+const
+ yourInfuraKey 
+=
+ 
+'add your key here'
+;
+const
+ web3 
+=
+ 
+new
+ 
+Web3
+(
+`
+https://mainnet.infura.io/v3/
+${
+yourInfuraKey
+}
+`
+)
+;
+
+
+// eslint-disable-next-line max-len
+const
+ 
+MultiCallAbi
+ 
+=
+ 
+'[{"inputs":[{"components":[{"internalType":"address","name":"to","type":"address"},{"internalType":"bytes","name":"data","type":"bytes"}],"internalType":"struct MultiCall.Call[]","name":"calls","type":"tuple[]"}],"name":"multicall","outputs":[{"internalType":"bytes[]","name":"results","type":"bytes[]"},{"internalType":"bool[]","name":"success","type":"bool[]"}],"stateMutability":"view","type":"function"}]'
+;
+// eslint-disable-next-line max-len
+const
+ 
+OffChainOracleAbi
+ 
+=
+ 
+'[{"inputs":[{"internalType":"contract MultiWrapper","name":"_multiWrapper","type":"address"},{"internalType":"contract IOracle[]","name":"existingOracles","type":"address[]"},{"internalType":"enum OffchainOracle.OracleType[]","name":"oracleTypes","type":"uint8[]"},{"internalType":"contract IERC20[]","name":"existingConnectors","type":"address[]"},{"internalType":"contract IERC20","name":"wBase","type":"address"}],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"contract IERC20","name":"connector","type":"address"}],"name":"ConnectorAdded","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"contract IERC20","name":"connector","type":"address"}],"name":"ConnectorRemoved","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"contract MultiWrapper","name":"multiWrapper","type":"address"}],"name":"MultiWrapperUpdated","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"contract IOracle","name":"oracle","type":"address"},{"indexed":false,"internalType":"enum OffchainOracle.OracleType","name":"oracleType","type":"uint8"}],"name":"OracleAdded","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"contract IOracle","name":"oracle","type":"address"},{"indexed":false,"internalType":"enum OffchainOracle.OracleType","name":"oracleType","type":"uint8"}],"name":"OracleRemoved","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"inputs":[{"internalType":"contract IERC20","name":"connector","type":"address"}],"name":"addConnector","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"contract IOracle","name":"oracle","type":"address"},{"internalType":"enum OffchainOracle.OracleType","name":"oracleKind","type":"uint8"}],"name":"addOracle","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"connectors","outputs":[{"internalType":"contract IERC20[]","name":"allConnectors","type":"address[]"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"contract IERC20","name":"srcToken","type":"address"},{"internalType":"contract IERC20","name":"dstToken","type":"address"},{"internalType":"bool","name":"useWrappers","type":"bool"}],"name":"getRate","outputs":[{"internalType":"uint256","name":"weightedRate","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"contract IERC20","name":"srcToken","type":"address"},{"internalType":"bool","name":"useSrcWrappers","type":"bool"}],"name":"getRateToEth","outputs":[{"internalType":"uint256","name":"weightedRate","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"multiWrapper","outputs":[{"internalType":"contract MultiWrapper","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"oracles","outputs":[{"internalType":"contract IOracle[]","name":"allOracles","type":"address[]"},{"internalType":"enum OffchainOracle.OracleType[]","name":"oracleTypes","type":"uint8[]"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"contract IERC20","name":"connector","type":"address"}],"name":"removeConnector","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"contract IOracle","name":"oracle","type":"address"},{"internalType":"enum OffchainOracle.OracleType","name":"oracleKind","type":"uint8"}],"name":"removeOracle","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"renounceOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"contract MultiWrapper","name":"_multiWrapper","type":"address"}],"name":"setMultiWrapper","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"}]'
+;
+
+
+const
+ offChainOracleAddress 
+=
+ 
+'0x07D91f5fb9Bf7798734C3f606dB065549F6893bb'
+;
+
+
+const
+ multiCallContract 
+=
+ 
+new
+ 
+web3
+.
+eth
+.
+Contract
+(
+JSON
+.
+parse
+(
+MultiCallAbi
+)
+,
+ 
+'0xda3c19c6fe954576707fa24695efb830d9cca1ca'
+)
+;
+const
+ offChainOracleContract 
+=
+ 
+new
+ 
+web3
+.
+eth
+.
+Contract
+(
+JSON
+.
+parse
+(
+OffChainOracleAbi
+)
+)
+;
+
+
+const
+ tokens 
+=
+ 
+[
+    
+{
+        address
+:
+ 
+'0x6b175474e89094c44da98b954eedeac495271d0f'
+,
+ 
+// DAI
+        decimals
+:
+ 
+18
+,
+    
+}
+,
+    
+{
+        address
+:
+ 
+'0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48'
+,
+ 
+// USDC
+        decimals
+:
+ 
+6
+,
+    
+}
+,
+    
+{
+        address
+:
+ 
+'0xdac17f958d2ee523a2206206994597c13d831ec7'
+,
+ 
+// USDT
+        decimals
+:
+ 
+6
+,
+    
+}
+,
+ 
+{
+        address
+:
+ 
+'0x111111111117dc0aa78b770fa6a738034120c302'
+,
+ 
+// 1INCH
+        decimals
+:
+ 
+18
+,
+    
+}
+,
+]
+;
+
+
+const
+ callData 
+=
+ tokens
+.
+map
+(
+(
+token
+)
+ 
+=>
+ 
+(
+{
+    to
+:
+ offChainOracleAddress
+,
+    data
+:
+ offChainOracleContract
+.
+methods
+.
+getRateToEth
+(
+        token
+.
+address
+,
+        
+true
+,
+ 
+// use wrapper
+    
+)
+.
+encodeABI
+(
+)
+,
+}
+)
+)
+;
+
+
+multiCallContract
+.
+methods
+.
+multicall
+(
+callData
+)
+.
+call
+(
+)
+    
+.
+then
+(
+(
+{
+        results
+,
+        success
+,
+    
+}
+)
+ 
+=>
+ 
+{
+        
+const
+ prices 
+=
+ 
+{
+}
+;
+        
+for
+ 
+(
+let
+ i 
+=
+ 
+0
+;
+ i 
+<
+ results
+.
+length
+;
+ i
+++
+)
+ 
+{
+            
+if
+ 
+(
+!
+success
+[
+i
+]
+)
+ 
+{
+                
+continue
+;
+            
+}
+
+
+            
+const
+ decodedRate 
+=
+ web3
+.
+eth
+.
+abi
+.
+decodeParameter
+(
+'uint256'
+,
+ results
+[
+i
+]
+)
+.
+toString
+(
+)
+;
+            
+const
+ numerator 
+=
+ 
+BigNumber
+.
+from
+(
+10
+)
+.
+pow
+(
+tokens
+[
+i
+]
+.
+decimals
+)
+;
+            
+const
+ denominator 
+=
+ 
+BigNumber
+.
+from
+(
+10
+)
+.
+pow
+(
+18
+)
+;
+ 
+// eth decimals
+            
+const
+ price 
+=
+ 
+BigNumber
+.
+from
+(
+decodedRate
+)
+.
+mul
+(
+numerator
+)
+.
+div
+(
+denominator
+)
+;
+            prices
+[
+tokens
+[
+i
+]
+.
+address
+]
+ 
+=
+ price
+.
+toString
+(
+)
+;
+        
+}
+        
+console
+.
+log
+(
+prices
+)
+;
+        
+/*
+            {
+                '0x6b175474e89094c44da98b954eedeac495271d0f': '527560209915550',
+                '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48': '507746821617073',
+                '0xdac17f958d2ee523a2206206994597c13d831ec7': '529527134930000',
+                '0x111111111117dc0aa78b770fa6a738034120c302': '1048752594621361'
+            }
+         */
+    
+}
+)
+    
+.
+catch
+(
+console
+.
+log
+)
+;
+Copy
+Single token-to-ETH price usage
+Multiple token-to-ETH prices usage
+
+
+
+
+
+
+
+
+
+---PAGE 13---
+
+
+
+
+
+
+
+
+
+
+
+
+Proposal Lifecycle | 1inch Network
+
+
+
+
+
+
+
+
+
+
+
+
+Skip to main content
+On this page
+The 1inch Network DAO governance process takes place in the governance forum at 
+gov.1inch.io
+. Proposals are formally ratified through the 1inch Improvement Proposal (1IPs). There are no requirements for participating in the 1inch Network DAO discussion. Anyone can sign up for the 1inch Governance forum, or 
+Discord
+, and engage in the conversation. 
+Phase 1: Discussion
+#
+The purpose of this phase is to vet ideas with the broader 1inch community. Each unique idea should have its own thread so that the conversation can stay on topic, it should be as narrowly focused as possible. Anyone can participate in this phase of governance, and it occurs entirely off-chain. The goal of Phase-1 discussion is to gain a rough community consensus, and refine the idea so that it can be formalized. The thread author should make an effort to address all comments and take them into consideration.
+Forum tag:
+ 
+phase-1
+Duration:
+ Open-Ended
+Phase 2: 1IP Formalization
+#
+Phase 2 is where the idea is formalized into an 1IP that includes all of the criteria specified in the 
+1inch Improvement Proposal (1IP) Template
+. It must be a clear and complete description of the proposed enhancement. It is a requirement that a single 1IP contains a single proposal. All 1IPs must have the following components (refer to the template for a detailed breakdown):
+Simple Summary
+Abstract
+Motivation
+Specification
+ 
+Rationale
+Considerations
+The forum is the formal arena to debate the merits of each 1IP. Once the 1IP has been drafted, the author must post it on the 1inch governance forum and use the tag: 
+phase-2
+. 
+While the 1IP is in a draft state, the 1IP author is free to make modifications to the proposal based on feedback from the community's review.
+To preserve the number sequencing of 1IPs, proposals should use the 1RC (1inch Request for Comment) prefix for both Phase 2 and Phase 3. The 1IP number will be assigned once the proposal enters the Phase-4 Snapshot vote.
+Forum tag:
+ 
+phase-2
+Duration
+: Open-Ended
+Phase 3: 1IP Temperature Check
+#
+At any point during Phase-2, the author may finalize the 1IP by initiating a community temperature check. To do this, the author must change the tag of the forum post to 
+phase-3
+, and add a forum poll to gauge the community’s sentiment. 
+1IPs should only be progressed to Phase-3 once the author has considered all community comments and believes the 1IP is prepared for incorporation.
+Phase-3 represents the final proposal. Other than correcting errata, 1IPs in Phase 3 may not be edited.
+The poll must be open for 3 days and only have the following options: 
+(Yes) In favor of this proposal.
+(No) Against this proposal.
+Only successful Phase-3 proposals may progress to Phase-4. In order for a Phase-3 vote to be considered successful, a majority of the temperature check votes cast must be in favor. There is no minimum quorum required for this phase.
+Forum tag:
+ 
+phase-3
+Duration:
+ Exactly 3 days
+Phase 4: Snapshot Vote
+#
+All 1IPs are confirmed, or rejected, by the 1inch Network DAO via an off-chain 
+Snapshot
+ vote. The Snapshot vote must link to the results of the successful Phase-3 forum poll and include the full text of the finalized 1IP. Anyone can initiate the Snapshot vote as long as all requirements of Phase-3 were met (it does not have to be the 1IP author). Once the Snapshot vote has been created, the forum tag should be changed to 
+phase-4
+ and the title of the post should have the next 1IP-# added as the prefix.
+The Snapshot voting period must last exactly five days. During this period, addresses with voting power may vote for or against the proposal using the same two voting options as the Phase-3 poll:
+(Yes) In favor of this proposal.
+(No) Against this proposal.
+Voting Weight
+ is proportional to the amount of governance tokens held by, or delegated to, an address. To prevent griefing of the 1inch governance process, a minimum of 25,000 Voting Weight is required to create a Snapshot vote (e.g., 25,000 st1INCH or 125,000 v1INCH).
+In order for a vote to be considered successful, both of the following must be met:
+A minimum quorum of 10 million weighted votes must be cast.
+A majority of the votes must be (Yes) I am in favor of this proposal.
+See 
+Voting Process
+ for a detailed description of how Voting Weight is calculated and how Vote Delegation works.
+Forum tag:
+ 
+phase-4
+Duration:
+ Exactly 5 days
+Phase 5: Implementation
+#
+After the Snapshot voting period has concluded, the results will be posted on 
+1IPs section
+ of the governance documentation site. If the proposal has passed, it will move from the Active to Passed category. Unsuccessful proposals will move to Not-Passed. 
+SafeSnap
+ allows for on-chain execution of the off-chain Snapshot vote by using the 
+reality.eth
+ oracle. Reality.eth’s bonded escalation period lasts at least 72 hours (this period is reset if the resolution is challenged). The SafeSnap process officially concludes once a full 72 hour escalation period has elapsed without challenge.
+There is an additional 72 hour period of time between the SafeSnap resolution and the incorporation of said 1IP into the protocol -- this is known as the Timelock. During the Timelock period, the 
+1inch Network DAO Treasury
+ multisig owners will have the ability to veto malicious transactions in a 7-of-12 fashion.
+For more involved 1IPs, the implementation will vary on a case-by-case basis.
+Duration:
+ 6 days, minimum
+Phase 1: Discussion
+Phase 2: 1IP Formalization
+Phase 3: 1IP Temperature Check
+Phase 4: Snapshot Vote
+Phase 5: Implementation
+
+
+
+
+
+
+
+
+
+---PAGE 14---
+
+
+
+
+
+
+
+
+
+
+
+
+Voting Process | 1inch Network
+
+
+
+
+
+
+
+
+
+
+
+
+Skip to main content
+On this page
+Voting Weight
+#
+1inch Protocol is controlled by the 1inch governance tokens. To ensure that the individuals with direct control over the protocol have a vested interest in its long term success, while also limiting the power of backers and core contributors, different voting weights were assigned to each class of governance token:
+1INCH:
+ The un-staked version of 1INCH does not have the ability to vote on governance proposals. It must first be staked.
+st1INCH:
+ This is the non-transferable ERC-20 which represents 1INCH staked within the 1inch protocol’s governance contract. This has a Voting Weight of 100%.
+v1INCH:
+ This is an ERC-20 which represents 1INCH tokens that are currently locked in the vesting contract. These tokens are held by backers, advisors, and core contributors but are not yet fully-vested. Each v1INCH has 1/5th (20%) the Voting Weight compared to st1INCH.
+Staking
+#
+1INCH must be 
+staked
+ in the governance contract to participate in voting. Staking is an on-chain event in which the user temporarily locks their 1INCH up and receives non-transferable st1INCH. At any point the user may reverse the process by using the 
+Unstake token
+ UI. however, there may be early withdrawal penalties.  
+Vote Delegation
+#
+Holders of the 1inch governance tokens may delegate their Voting Weight to an address of their choice. Those who choose to delegate their voting rights to another address are known as Delegators, while those who receive delegation are known as Delegatees. 1inch Network DAO uses 
+Snapshot's supported delegation strategy
+.
+Anybody can participate in 1inch DAO governance if their address has received delegation, even if the address of the delegatee holds no governernance tokens.
+1inch governance token holders may choose to delegate their voting powers in the 
+Snapshot 1inch space
+, or, by interacting directly with the Snapshot delegation smart contract. Both locations can also be used to remove delegation from a previously assigned address. 
+If a Delegator delegates their voting power to a Delegatee and both of them vote on the same proposal, then the delegated voting power is ignored for that vote. In other words, even if a Delegator has allotted their voting power to another address, said Delegator always has the option to temporarily override that delegation by voting themselves.
+Supported Networks
+#
+Currently, 1inch DAO voting uses governance token balances and delegations on the Ethereum mainnet.
+1INCH Token
+#
+1INCH is the governance and utility token of the 1inch Network.
+Distribution
+#
+Token Addresses
+#
+1INCH
+#
+Ethereum mainnet: 
+0x111111111117dc0aa78b770fa6a738034120c302
+Binance Smart Chain: 
+0x111111111117dc0aa78b770fa6a738034120c302
+v1INCH
+#
+Ethereum mainnet: 
+0x03d1b1a56708fa298198dd5e23651a29b76a16d2
+st1INCH (v1)
+#
+Ethereum mainnet: 
+0xA0446D8804611944F1B527eCD37d7dcbE442caba
+st1INCH (v2)
+#
+Ethereum mainnet: 
+0x9A0C8Ff858d273f57072D714bca7411D717501D7
+Voting Weight
+Staking
+Vote Delegation
+Supported Networks
+1INCH Token
+Distribution
+Token Addresses
+
+
+
+
+
+
+
+
+
+---PAGE 15---
+
+
+
+
+
+
+
+
+
+
+
+
+1inch Network DAO Treasury | 1inch Network
+
+
+
+
+
+
+
+
+
+
+
+
+Skip to main content
+On this page
+The 1inch Network DAO Treasury is the pool of funds under the direct domain and ownership of the community. 
+All protocol revenues are directed to the DAO Treasury and referral rewards.
+DAO Treasury
+#
+The 1inch Network DAO Treasury is a 
+Gnosis Safe
+ smart contract wallet with multi-signature (multisig) functionality on the Ethereum mainnet. 12 multisig owners have initially been selected by the 1inch Foundation from the core contributor team and other well-known projects, such as 
+Synthetix
+, 
+Opium
+, 
+NEAR protocol
+, and 
+zkSync
+, to name a few. These signers are able to veto malicious transactions in a 7-of-12 fashion. 
+Gnosis Safe + Snapshot + SafeSnap
+#
+Snapshot allows for gasless voting. SafeSnap, also known as 
+Reality Module
+, is a Snapshot module that allows for on-chain execution of off-chain voting. The combination of these tools gives the DAO’s votes direct control over the Gnosis Safe that holds the Treasury funds.
+SafeSnap has been integrated into the 1inch Snapshot space. 1IPs that call for payment(s) from the treasury must have the "Transactions" container filled out by the individual proposing the Phase 4 Snapshot vote. Required fields include transaction type, Asset, recipient address, and amount.
+Once the Snapshot vote closes, and the vote has met the minimum quorum (more in 
+Phase 4: Snapshot Vote
+), anyone can use the Snapshot UI to "Request execution" in the "SafeSnap Execution" window -- this is an on-chain transaction that initializes the reality.eth Oracle.
+After the reality.eth Oracle has been initialized, anyone can set the outcome by putting up a bond of 0.1 ETH to be used in the escalation-game-based Oracle. This bond is returned if their answer correctly identifies the passing result of the Snapshot proposal as specified in the 1inch Network DAO Acceptance Criteria.
+The bonded escalation game concludes once a 72-hour period has elapsed without challenge. Challenging the outcome requires a bond that is at least double the size of the current one, and it restarts the 72-hour period.
+Once the reality.eth bonded oracle resolves in favor of the proposal, there is an additional 72 hour period of time between the SafeSnap resolution and the ability for the underlying transaction to be executed -- this is known as the Timelock. During the Timelock period, the 1inch Network DAO Treasury multisig owners will have the ability to veto malicious transactions in a 7-of-12 fashion. 
+After all steps have successfully completed, the proposal will be executable by anyone who calls the function. The reality.eth participants may then retrieve their bond.
+Kleros Arbitration
+#
+The Kleros DAO Governance Arbitrator is set as the default Anyone can request Kleros arbitration for the reality.eth bonded escalation game at any point after the first answer is submitted. This can be done in the 
+reality.eth app
+ or by 
+interacting directly with the smart contract
+. Once arbitration is called, the bonded escalation is paused and no further answers are accepted.
+Kleros Oracle combines Kleros's dispute resolution court system with reality.eth's cryptoeconomic bonded escalation game for verifying off-chain events on-chain. The 
+Kleros DAO Governance Arbitrator
+ acts as a proxy between reality.eth and Kleros Court contract. It creates a corresponding dispute in Kleros Courts and submits the final ruling as an answer in the proper reality.eth format. There are 5 votes in the DAO Governance Arbitrator subcourt, each vote has a juror fee of 0.072 ETH, so the total cost of arbitration is 0.36 ETH (fee numbers are from the 
+October 2021 Kleros Pramater Update vote
+ and are subject to change).
+If the result of the Kleros arbitration is to affirm the answer given by the final answerer, that person receives the question reward. If the result of arbitration is to change the final answer, the individual who paid for arbitration receives the question reward.
+External References
+#
+1inch reality.eth module
+ -- 
+0xa62D2a75eb39C12e908e9F6BF50f189641692F2E
+1inch Network DAO Treasury
+ -- 
+0x7951c7ef839e26F63DA87a42C9a87986507f1c07
+1inch Network DAO Acceptance Criteria
+ -- 
+IPFS deployment
+reality.eth:
+ 
+App
+Whitepaper
+Reality Module Governance Oracle Question Resolution Policy
+Kleros:
+ 
+Documentation site
+DAO Governance Arbitrator Github
+Kleros DAO Governance Arbitrator Proxy -- 0xf72CfD1B34a91A64f9A98537fe63FBaB7530AdcA
+Revenue stream
+#
+The 1inch Pathfinder algorithm always provides users the most current and best possible prices on a swap. However, the swap price sometimes moves between the time of the quote and the time that the transaction is mined — resulting in a Swap Surplus. 
+Funds are collected from the Swap Surplus on all chains. A portion of these funds are paid out to the referral program on the chain the swaps were performed. The majority are sent to the Ethereum mainnet, swapped for USDC, and sent directly to the 1inch Network DAO Treasury.
+Governance participants are able to control the revenue split of the 
+Aggregation Protocol
+ and 
+Liquidity protocol
+ by voting with Instant Governance.
+Note that none of the revenue funds ever go to the 1inch Foundation -- they are 100% controlled by the 1inch DAO.
+DAO Treasury
+Gnosis Safe + Snapshot + SafeSnap
+Kleros Arbitration
+External References
+Revenue stream
+
+
+
+
+
+
+
+
+
+---PAGE 16---
+
+
+
+
+
+
+
+
+
+
+
+
+Instant Governance | 1inch Network
+
+
+
+
+
+
+
+
+
+
+
+
+Skip to main content
+On this page
+Instant Governance is a feature that allows the community to vote for specific protocol settings. The Aggregation Protocol and Liquidity Protocol each have their own Instant Governance module.
+Aggregation Protocol Instant Governance
+#
+The 
+Aggregation Protocol Instant Governance
+ module allows community members to vote on how the Swap Surplus revenue stream is split between the Treasury and the referrers. 
+Liquidity Protocol Instant Governance
+#
+The 
+Liquidity Protocol Instant Governance
+ module allows the community to vote directly on major Liquidity Protocol parameters: the price impact fee, the swap fee, the Treasury  accrual rate, the referral reward, and the decay period. 
+There are two levels of Liquidity Protocol Instance Governance:
+Pool governance
+ only allows for the configuration of parameters specific to each pool. These parameters include the swap fee, the price impact fee, and the decay period. Liquidity providers may participate in pool governance by using that pool's LP tokens -- the weight of each user’s vote is proportional to the amount of LP tokens they have. The Liquidity Protocol uses a weighted average of all votes and applies it linearly over 24 hours.
+Factory governance
+ is responsible for parameters shared by all pools. These include the default swap fee, the default price impact fee, the default decay period, the referral reward and the Treasury accrual rate.
+Decay period
+#
+The decay period is a unique feature that protects traders from front-running attacks and prevents arbitrage traders from easily extracting value from pools. Longer decay periods lead to a wider price spread in the pool after trades. 1INCH stakers can set a decay period between 15 seconds and 1 hour.
+Referral reward
+#
+This reward is a part of the swap fee and the price impact fee which will be dedicated to referrers (dApps and wallets that attract users and trading volume). Referrers can subsequently claim their share of 1INCH tokens from all pools in one gas-efficient claim transaction.
+Treasury accrual rate
+#
+All protocol revenue not sent to the referrers is instead sent to the Treasury.
+Aggregation Protocol Instant Governance
+Liquidity Protocol Instant Governance
+Decay period
+Referral reward
+Treasury accrual rate
+
+
+
+
+
+
+
+
+
+---PAGE 17---
+
+
+
+
+
+
+
+
+
+
+
+
+1inch Improvement Proposal (1IP) Template | 1inch Network
+
+
+
+
+
+
+
+
+
+
+
+
+Skip to main content
+On this page
+Title
+#
+Title should reflect the content of the 1IP. 
+ For the forum post, prefix “[1RC]” to the title and set the tag on the post to 
+phase-2
+. Proposals will be assigned an 1IP-# at the time of Phase 4 Snapshot creation.
+Simple Summary
+#
+A brief, high-level summary of what changes are being suggested. Summary should be a single sentence, or a bulleted list.
+Abstract
+#
+Abstract is a multi-sentence (short paragraph) technical summary. This should be a very terse and human-readable version of the motivation and specification sections. Someone should be able to read only the abstract to get the gist of what this specification does.
+Motivation
+#
+The motivation section should describe the "why" of this 1IP. What problem does it solve? Why should someone want to implement this standard? What benefit does it provide to the 1inch Network or protocols? What use cases does this 1IP address?
+Specification
+#
+The specification section should describe the syntax and semantics of any new feature, or change, at a technical level. The specification should be detailed enough to allow for implementation by a development team.
+Rationale
+#
+The rationale fleshes out the specification by describing what motivated the design and why particular design decisions were made. It should describe alternate designs that were considered, and explain why the proposed specification provides the most amount of net benefit.
+Considerations
+#
+All 1IPs must contain a section that discusses the security and governance implications/considerations of the proposal.
+Security specific implications/considerations include security-relevant design decisions, concerns, implementation-specific guidance and pitfalls, drawbacks, an outline of threats and risks and how they are being addressed, etc.
+Governance specific implications/considerations include impact on revenue stream, cost to treasury, voting process, staking, tokenomics, etc.
+If the proposal requires payment to a third party team, this section must contain the qualifications of said team.
+Title
+Simple Summary
+Abstract
+Motivation
+Specification
+Rationale
+Considerations
+
+
+
+
+
+
+
+
+
+---PAGE 18---
+
+
+
+
+
+
+
+
+
+
+
+
+1IPs | 1inch Network
+
+
+
+
+
+
+
+
+
+
+
+
+Skip to main content
+On this page
+This section tracks all 1IPs that have made it to the 
+Phase-4: Snapshot Vote
+ of the Proposal Lifecycle.
+Active
+#
+All 1IPs that are currently 
+active in the Phase-4
+ voting process:
+Passed
+#
+All 1IPs that have successfully passed the Phase-4 vote. These 1IPs have already been implemented or are in the process of being implemented:
+[1IP-13] Governance Process Improvements
+#
+Phase-3: Temperature Check
+Phase-4: Snapshot Vote
+Full Proposal Description
+Author: Bobbay_StableNode
+References
+1inch governance process
+Simple Summary
+1IP-13 “Governance Process Improvements” introduces changes to the current governance process to create a more agile yet robust process.
+Abstract
+It takes around 12 days to implement a change via governance. This is time-consuming, especially since there is no express pathway to execute proposals in time-sensitive situations.
+1IP-13 will reduce the current governance timeline in different ways to ensure that governance changes can be enacted swiftly without compromising security.
+Motivation
+The current 1inch governance framework is far too long, which can hinder the DAOs ability to execute quickly.
+Specification
+Current Process
+Amendments
+New Process
+Current Process
+The current process can be found 
+here
+, but here is a summary.
+Phase 1 (Discussion) & Phase 2 (1IP formalization) have an open-ended duration, so they have no specific deadline.
+Phase 3 (temperature check) lasts five days. Proposals stay unchanged in this phase.
+Phase 4 (Snapshot Vote) lasts seven days.
+Phase 5 (Implementation) lasts a minimum of six days - This can be ignored since it does not involve the community.
+This means that the current governance process (ignoring phase 5) totals a minimum of 12 days to pass a proposal.
+Amendments
+We recommend the following amendments:
+Phase 3 -  Reduce from five days to three days.
+Phase 4  - Reduce from seven days to five days
+These changes ensure enough time to cast a forum and snapshot vote without compromising security. Across other DAOs, having a Snapshot vote last around five days is common practice. It provides a grey area between 3 days (too short) and 7 days (too long).
+New Process
+Phase 1 & Phase 2  - Open-ended
+Phase 3 -  Lasts three days
+Phase 4  - Lasts five days
+Phase 5 - Lasts seven days
+This new governance process (ignoring phase 5) totals a minimum of 8 days to pass a proposal instead of the original 12 days.
+Rationale
+The lengthy process has hindered the DAOs’ ability to execute promptly in the past. This reduction will still ensure a suitable amount of time for DAO members to participate in the DAO without sacrificing security.
+Considerations
+This will make it easier for the DAO to pass proposals that could open a security risk to malicious actors.
+Next Steps
+Discuss the Proposal
+Forum temperature check
+Move it to a vote
+[Yes]: Implement these governance changes
+[No]: Do not implement these governance changes
+[1IP-12] Improve Fusion Auction Resolver Competition
+#
+Phase-3: Temperature Check
+Phase-4: Snapshot Vote
+Full Proposal Description
+Simple Summary
+This proposal seeks to modify 1inch Fusion to allow all five of the top resolvers to fill orders during the entire duration of the Dutch Auction.
+Abstract
+If passed, this proposal will change the way that 1inch Fusion orders are filled by allowing all five resolvers to participate in every stage of the Dutch auction. This change will increase competition amongst resolvers and ensure that users are getting the best rates.
+Motivation
+Currently, the top five resolvers are given fill priority according to their Unicorn Power. For the first minute of the Dutch auction, only the resolver with the highest Unicorn Power can fill the order. Then, the resolver with the second most Unicorn Power joins them for the second minute, and so forth… This proposal will foster a more competitive auction by giving all resolvers equal priority.
+This proposal aims to increase competition amongst resolvers and thus provide better rates for users when they make swaps via the 1inch Network.
+Specification
+This proposal serves as a signal from the 1inch Network DAO to 1inch Labs. Once passed, the 1inch Network DAO calls for 1inch Labs to modify the Fusion logic to allow all five resolvers to participate in every stage of the Dutch auction.
+Above is the existing Fusion auction order structure.
+Below is the modified Fusion auction order structure that this proposal calls for.
+Rationale
+Allowing for pure competition amongst the five resolvers, rather than giving preferential access based on staking power, will facilitate better swap rates and faster execution times.
+This change will also make it more attractive for professional market makers to become resolvers, which may lead to a greater demand for 1INCH token as they accumulate the necessary Unicorn Power.
+Considerations
+1inch Fusion mode has already been audited and deployed. This proposal will have no negative security implications as it will only change the structure of the Dutch auction.
+An increase in the number of resolvers participating in the Fusion auctions should reduce the likelihood of resolver collusion.
+[1IP-11] 1inch Staking Pods
+#
+Phase-3: Temperature Check
+Phase-4: Snapshot Vote
+Full Proposal Description
+Author: 
+@Bobbay_stablenode
+References:
+GitHub - 1inch/erc20-pods 7
+,
+GitHub - 1inch/farming 5
+,
+GitHub - 1inch/delegating 1
+Simple Summary
+This proposal seeks to implement a new Staking Pod mechanic for the 1INCH token. This system will consist of:
+Incentivised time-locked 1INCH staking
+Permissionless delegation pods
+Reward distribution compatibility
+50% of all current, and future, 1inch DAO protocol revenue shall be distributed to stakers
+Abstract
+With the Staking Pod system, users lock their 1INCH tokens in a staking contract to get st1INCH tokens — the longer the lock period, the more st1INCH tokens the user gets. st1INCH tokens can be used by stakers for 1inch DAO governance, and the 1inch DAO can choose to use these token balances for reward distribution. The system is modular as anyone can launch a new Modular Delegation Pod and can use the reward functionality to incentivize certain actions and/or assign utility to the 1INCH token. 50% of all current, and future, 1inch DAO revenue shall be distributed to stakers.
+Motivation
+1INCH token is the governance token of the 1inch Network. It provides voting rights within the 1inch DAO’s governance system, and users can stake it to receive a 
+refund 3
+ on their transaction fees. However, despite these functions, the amount of 1INCH tokens currently being held in 
+staking contracts is quite low
+ and governance participation is even lower. We believe that this is due to a lack of incentives to participate in governance and a lack of additional utility for staked 1INCH.
+By introducing Modular Staking Pods, we hope to give stakers more direct control over how their stake is used to power the 1inch Network. This change will allow them to independently select how their stake governs each of the protocols and will allow for rewards to permissionlessly be distributed based on the actions of the stakers. We envision that this will improve the goverance by aligning incentives between people who want to stake to earn rewards and those who are interested in protocol governance – both players will have direct incentives to participate in the same system.
+We believe that this proposal represents a step forward for the 1inch Network and that it will help increase adoption and usage of the network’s future protocols.
+Specification
+Staking
+Like the existing 1INCH staking contract, users will be able to lock their 1INCH tokens in the staking contract to get st1INCH tokens that can be used for 1inch DAO governance. However, unlike the current system, Modular Staking will require users to lock their 1INCH for a set amount of time.
+Locking
+The minimum and maximum lock periods are chosen by the DAO through — for the purposes of analysis, we’ll use 1 month and 2 years as the minimum and maximum staking periods respectively. st1INCH tokens grant users “voting power” which they can use for various use cases. The longer the locking period the more “voting power” resolver can get. However, the increase in power is not linear.
+There will be a minimum locking period of 1 month.
+Note that st1INCH voting power will decay over time according to the locking curve. Also note that users can re-lock their stake at any time to refresh their st1INCH balance. Users will be able to withdraw their stake early but will forfeit a portion of their rewards.
+Orange is the amount lost when a staker withdraws earlier than they originally committed.
+Example:
+In 2023, Sally stakes 100 1INCH and selects a 2-year lock period.
+They receive 100 st1INCH from the staking contract and this balance decays over time.
+By 2024 Sally’s st1INCH balance has decayed to 22.36
+Sally then chooses to re-lock her stake for the maximum amount of time, 2-years, and her st1INCH balance is increased to 100.
+Sally chose not to re-lock, and in 2026, after the lock period, she withdraws her original 100 1INCH.
+Unlocking
+If a st1INCH staker wishes to unlock they will forfeit some of their tokens based on the following equation:
+withdrawalAmount = (balance - votingPower) / 0.9
+penalty = balance - withdrawalAmount
+In this setting, the maximum early withdrawal loss is 90% as the minimum locking period is 1 month
+Admin Control
+The 1inch DAO Treasury Address, 
+0x7951c7ef839e26F63DA87a42C9a87986507f1c07
+, would act as admin of the staking contract with control over the following functions:
+setFeeReceiver – this would allow the DAO to change the vault to collect the rewards for later distribution between stakers and the DAO treasury.
+setDefaultFarm – this would allow the DAO to change the default reward distribution contract for 1INCH staking.
+setMaxLossRatio – this would allow the DAO to change the earliest point at which people can early withdraw their stake by disallowing withdrawals with larger withdrawal fees.
+setEmergencyExit – This is basically an abort function and would allow the DAO to end the staking scheme. All stakers can reclaim the entire amount of their original stake regardless of their remaining locking period. This would be used if the DAO wanted to migrate to a new staking contract to change key variables, like the maximum lock period.
+Modular Delegation
+The Modular Delegation system provides users with a set of delegation contracts that are specific to a topic. The set of delegation contracts is permissionless, meaning that anyone can deploy one and allow users to delegate their st1INCH within it.
+The 1inch DAO will have the power to endorse a delegation contract and feature it in the 1inch staking UI.
+For the start, we propose just two delegation topics:
+Snapshot governance delegation
+This will allow users to delegate their Snapshot voting power to a recognized delegate from the UI, or manually enter an Ethereum/ENS address.
+Nested within this is the vanilla
+ Snapshot space-specific delegation contract 1
+.
+st1INCH utility delegation
+As part of this staking upgrade, there will be a new protocol added to 1inch’s suite of DeFi tools that will substantially improve the utility of st1INCH.
+Service providers that want to tap into the utility of st1INCH can proposition the community for delegated power.
+Rewards
+Modular Staking will have two levels of reward functionality: Generic st1INCH rewards and Modular Delegation rewards.
+Generic st1INCH rewards
+The st1INCH contract will allow anyone to run a farm to distribute rewards to everyone holding st1INCH tokens.
+Users also have the ability to to join as many farms as they want as it does not required a user to move their st1inch to a specific farm. Along as a user holds st1inch in their account, they can receive rewards from multiple farms.
+This proposal calls for 50% of all current, and future, 1inch DAO revenue to be distributed to stakers in the form of 1INCH.
+Modular Delegation rewards
+Some Modular Delegation contracts have  an integrated rewards function that anyone can run a farm atop.
+The main advantage to this type of reward is that it is not limited to being proportional to a user’s st1INCH holdings. Any action, onchain or offchain, can be used as the basis of reward distribution. This functionality could be used by the 1inch DAO to incentivize anything from editing 1IPs to using a new 1inch protocol (and everything in between).
+Example: The 1inch DAO may use the Snapshot governance delegation contract to incentivize active governance participation by boosting the st1INCH rewards of people who vote on proposals, delegate their st1INCH to active voters, etc…
+Rationale
+The rationale for this proposal is to provide a more flexible staking system that can be used to incentivize various activities within the 1inch Network. The new Modular Delegation contracts will allow for rewards to be distributed based on anything from voting on proposals to using new 1inch protocols. This will provide a greater incentive for users to participate in the network and help drive adoption of new 1inch products and services.
+Considerations
+The security considerations for this proposal are mainly around the potential for abuse of the new staking and delegation contracts. It is important to ensure that there are adequate safeguards in place to prevent users from delegating their voting power to malicious actors.
+The governance considerations for this proposal include the impact on revenue streams and changes to the governance processes. This proposal could potentially increase revenue for the 1inch DAO if it is successful in incentivizing more users to participate in the network. It is also worth considering how these changes will impact existing voting processes within the 1inch DAO since the existing staking contract will be deprecated.
+[1IP-09] Collect 1inch DAO Treasury Revenue in 1INCH Token in Addition to USDC
+#
+Phase-3: Temperature Check
+Phase-4: Snapshot Vote
+Full Proposal Description
+Simple Summary
+This proposal seeks to modify the 1inch Network DAO Treasury’s revenue collection strategy by enacting the following changes:
+Switch from buying USDC with Swap Surplus revenue to buying 1INCH when the price is lower than $1.30.
+Switch from buying 1INCH with Swap Surplus revenue to buying USDC the price of 1INCH is greater than or equal to $1.70.
+Abstract
+Currently, the Swap Surplus 
+revenue stream
+ is collected in varying tokens and swapped to 
+USDC
+ before it is then sent to the 1inch DAO 
+Treasury
+. Once enacted, this proposal will instead swap these tokens to 
+1INCH
+ as long as the market price of 1INCH is below the $1.30 to $1.70 range (see the Specification section for a detailed explanation). All swaps will be done using the 
+1inch Aggregation Protocol
+ to ensure the best pricing.
+Motivation
+Benefits to the 1inch Network DAO include:
+Investing the DAO’s revenue stream into the protocol’s governance token while the governance token is lower than it was previously valued.
+Potential upward pressure on the 1INCH token as the DAO Treasury will be a net buyer of cheap 1INCH.
+When the token is trading at higher valuations, the Treasury will automatically de-risk by collecting revenue in stable coins.
+Holding 1INCH within the 1inch DAO Treasury will allow the Treasury to scale its value with the performance of the token.
+Specification
+This proposal serves as a signal from the 1inch Network DAO to 1inch Labs. Once passed, the 1inch Network DAO calls for 1inch Labs to modify the fee collection strategy with the following changes:
+When the price of 1INCH moves is below $1.30, Swap Surplus revenue shall start to be collected in 1INCH.
+When the price of 1INCH moves above $1.70, Swap Surplus revenue shall be collected in USDC.
+Once the modifications have been made and tested, 1inch Labs shall deploy them. All future modifications to these will need to be done by a 1inch DAO Governance vote.
+Rationale
+This proposal aims to purchase 1INCH with treasury revenue when the price is lower than ~$1.50. $0.20 bands are used on either side of this buying point in order to dampen the impact that market volatility could have.
+This price point of 1INCH that triggers the switch can be changed in the future via a governance vote.
+Considerations
+Market Risk
+The USDC stablecoin composition of the 1inch DAO Treasury puts the Treasury in a very good position during any bearish market cycles — the Treasury constantly grows in dollar value while, in contrast, projects that primarily hold their own token, have had the real value of their Treasury shrink in the last 6 months.
+Adding 1INCH to the Treasury composition will increase both the potential risk and potential returns. This proposal dampens the volatility by maintaining a mix of risk-on and risk-off assets.
+Added Complexity
+If enacted, this proposal will add complexity to the Treasury Revenue collection strategy.
+[1IP-08] Simple diversification mechanism for 1inch DAO Treasury
+#
+Phase-3: Temperature Check
+Phase-4: Snapshot Vote
+Full Proposal Description
+Simple Summary
+This proposal seeks to diversify the 1inch Network DAO’s Treasury composition be enacting the following strategy:
+Do not exchange a whitelisted set of tokens for USDC before sending to the 1inch DAO Treasury.
+These whitelisted tokens shall be: ETH, WETH, WBTC, DAI, and USDT.
+Abstract
+Currently, all of the Swap Surplus revenue stream is collected in varying tokens and swapped to USDC before being sent to the 1inch DAO Treasury. To start the diversification process of the treasury funds, the protocol can keep some incoming Swap Surplus tokens as collected (not swapping them for USDC).
+This proposal aims to whitelist the following tokens for this treasury collection strategy:
+ETH
+WETH
+WBTC
+DAI
+USDT
+Motivation
+The 1inch DAO Treasury is 100% composed of USDC. USDC is a fiat-backed stablecoin pegged to USD managed by Circle.
+USD experienced record inflation over the last 12 months, and will experience some degree of inflation for perpetuity. As such, the marginal spending power of the 1inch DAO Treasury is weakened unless the DAO deploys the funds in a manner that can outpace inflation.
+These assets are viewed as risk-on diversification assets for the treasury:
+ETH – the native asset of the Ethereum blockchain
+WETH – ETH wrapped in an ERC20 wrapper
+WBTC – Bitcoin (BTC) is the oldest and largest digital asset. WBTC is Bitcoin wrapped in an ERC20 wrapper
+Stablecoins also have inherent risks such as smart contract risks and centralization risks. Diversifying the stable coin holdings of the 1inch DAO Treasury aims to hedge against these risks. These assets are viewed as risk-off assets for the treasury:
+DAI – the decentralized collateral-backed stablecoin issued by the Maker Protocol. DAI is soft-pegged to USD
+USDT – the fiat-backed stablecoin pegged to USD and managed by Tether
+Specification
+To implement this proposal, GovernanceLeftoverExchanger should transfer ETH, WETH, WBTC, DAI and USDT directly to the treasury the same way it transfers USDC. All other tokens should still be converted to USDC as they are now.
+Rationale
+The crypto market cap took a decline in recent months. With token valuations depressed, it may be a good time to start accumulating non-stable tokens to grow the treasury.
+Since exchange transactions cost some Ether to pay for the gas fees, eliminating the swapping step for these whitelisted tokens will increase the capital efficiency of this operation. It is also for this reason that large stable coins such as DAI and USDT, should be sent directly to the treasury.
+Considerations
+The current stablecoin composition of the 1inch DAO Treasury ensures that the Treasury is insulated from bearish market cycles. However, this also means the treasury’s funds have no way to keep pace with the rise in inflation. Adding ETH, WETH and WBTC increase both the risk and the potential rewards.
+This proposal does not call for any actions to be taken with the funds currently held by the 1inch DAO Treasury.
+[1IP-07] Integrate Balancer Boosted Pools in the 1inch Aggregation Protocol
+#
+Phase-3: Temperature Check
+Phase-4: Snapshot Vote
+Full Proposal Description
+Simple Summary
+This proposal calls for the integration of 
+Balancer Boosted Pools
+ into the 1inch Aggregation Protocol.
+Abstract
+This proposal aims to grow the kinds of liquidity sources compatible with the 1inch Aggregation Protocol by integrating Balancer Boosted Pools. To fund this development, a BAL grant from Balancer DAO and Balancer DAO will be awarded to 1inch Labs upon the successful completion of the integration. Specifically, the following
+1inch Labs shall integrate the Balancer Boosted Pools into the 1inch smart contracts, the 1inch dApp, and the 1inch API.
+The integration shall be live on the Ethereum main-net no later than 3 weeks after this proposal passes the Phase-4 snapshot vote.
+If both conditions 1 and 2 are met, Balancer DAO and Balancer DAO will transfer 20k BAL or the equivalent in stablecoins (as determined by Balancer DAO) to 1inch Labs.
+Motivation
+Balancer Boosted Pools are a new pool type that have been gaining traction from many DeFi protocols. These pools were previously discussed with the 1inch community on the 
+1inch Governance Forum
+ as well as the 
+1inch Network DAO Community Call #02
+.
+Given that this is a new pool type and requires effort from 1inch Labs, Balancer seeks to fund this integration via a payment of 20,000 BAL to 1inch Labs.
+Specification
+At a high level, integration of Balancer Boosted Pools would require support for Balancer’s BatchSwap function, the routing of trades through multiple Balancer pools including linear pools nested in the boosted pool and the math in the linear pools. This proposal hopes that the support for Boosted Pools is general and can later be expanded to new future Boosted Pools. The integration of Balancer’s BatchSwap function within the 1inch Network will also be able to be used for pools other than Boosted Pools which would benefit both the 1inch Network and Balancer as it would allow for cheaper execution of trades from the wider Balancer pool types. In the near future we expect to see meta pools created with the BPT of Boosted Pools, an example would be a bbaUSD/WETH pool. Routing trades through such pools would include one or more extra hop through Balancer’s BatchSwap function.
+We expect that there will be many new Boosted Pools across all networks in near future, namely poos in collaboration with Ampleforth and Olympus although, below is a non-exhaustive list of currently live Boosted Pools on Ethereum L1:
+bbaUSD, containing 300mm of DAI/USDC/USDT TVL
+bbfUSD, 
+expected
+ to contain at least 50mm of FEI/LUSD/DAI
+This is contingent on the same proposal passing through the BalancerDAO.
+Upon satisfactory integration 
+Note1
+, 20,000 BAL shall be sent to 1inch Labs ETH address:
+0x2DF104682A61241C79eBB3ce3b2C293578bF6A9D.
+Note 1
+: Satisfactory integration is defined as the 1inch Aggregation Protocol accurately forwarding trades through the bbaUSD and the bbfUSD pools, on Ethereum main-net, when those pools offer the optimal pricing for the end-user.
+Rationale
+Support for the mentioned pools will unlock $350mm of efficient TVL for the 1inch Aggregation Protocol and allow it to have access to cheap liquidity for trade routing at the moment of integration and much more TVL in the future as Boosted Pool continue their adoption. Additionally, Boosted Pools have been adapted by BeethovenX, Balancer’s Friendly Fork on Fantom and, integrating them would provide a good source for volume to 1inch on Fantom as well.
+Balancer Boosted Pools are in much demand from other DeFi protocols due to their innovation in capital efficiency thus, it is expected to see many more Balancer Boosted Pools with high TVL in collaboration with other DAOs, some of which were mentioned in the discussion on the forum. Supporting Boosted Pools will position the 1inch aggregator to be able to rapidly integrate any new Boosted Pools launched.
+This BAL grant would be used by 1inch Labs to fund the development of this integration.
+Considerations
+The technical specifics of this integration will be defined by 1inch Labs. Like all new modules they have launched, a complete internal security review and audit should be performed before this change is implemented on main-net.
+Because Balancer DAO is directly funding this integration, other upgrades to the 1inch Network can be made in parallel.
+[1IP-05] Add Derivative Aggregation to 1inch Network
+#
+Phase-3: Temperature Check
+Phase-4: Snapshot Vote
+Full Proposal Description
+Simple Summary
+This proposal seeks to add derivative aggregation to the 1inch Protocol. Specifically, it calls for the following additions:
+Aggregation Protocol is expanded to include derivatives
+Add derivative aggregation to the 1inch smart contracts, 1inch dApp, and 1inch API
+The first derivative supported will be Opium’s TURBO products (call options)
+Abstract
+This proposal aims to signal to the 1inch Foundation that the DAO wants to add derivative aggregation to the 1inch Protocol – specifically, the 1inch smart contracts, the 1inch dApp, and the 1inch API. Adding derivative aggregation to the protocol will require technical effort from 1inch Labs, and will require the support of 1inch Foundation.
+Motivation
+1inch is currently the leading decentralized exchange aggregator and has made a reputation of providing the best prices on token swaps. With the rise of derivatives in the DeFi space, there is a new product niche that 1inch is perfectly positioned to capitalize on: 
+the aggregation of derivative products.
+By implementing this proposal, 1inch will solve the problem of fractured derivative liquidity (just like it previously solved fractured token liquidity).
+Specification
+This proposal serves as a signal from the 1inch Network DAO to the 1inch Foundation and 1inch Labs. Once passed, the 1inch Network DAO calls for the 1inch Foundation to allot resources to add derivative aggregation to the 1inch Protocol and dApp, and for 1inch Labs to add derivative aggregation to the 1inch smart contracts and 1inch API.
+Opium’s TURBO product is a short-dated call option:
+Community / users can “write” covered calls by pooling their tokens in order to earn yield (collect call option premiums)
+Takers (professional market makers) can buy the call options in order to gain leveraged exposure to the underlying asset
+Adding Opium’s TURBO options to the aggregation UI will require coordination with the Opium community to ensure a smooth integration.
+Rationale
+The architecture of the aggregation protocol has not yet been defined.
+Opium’s TURBO product was chosen as the first derivative supported because the Opium community was offering to help with this integration via documentation and SDKs.
+Considerations
+The specifics of launching an aggregation protocol will not be defined until the 1inch Foundation supports the proposal. Like all new modules they have launched, a complete security review and audit should be performed before this change is implemented on mainnet.
+Since all work described in this proposal will be organized by the 1inch Foundation, this will not cost any treasury funds.
+Not-Passed
+#
+All 1IPs that did not pass the Phase-4 vote. These 1IPs did not meet the minimum quorum, and/or a majority of the voting weight was opposed to the change:
+[1IP-10] 1inch DAO SAFE Airdrop Claim
+#
+Phase-3: Temperature Check
+Phase-4: Snapshot Vote
+[1IP-06] Donation of 1inch DAO Treasury Funds to support Ukraine’s humanitarian crisis
+#
+Phase-3: Temperature Check
+Phase-4: Snapshot Vote
+[1IP-03] VOTE to make $1INCH deflationary!
+#
+Phase-3: Temperature Check
+Phase-4: Snapshot Vote
+[1IP-01] 1inch Trading Incentives - Discount, Swap Fee & Slippage Subsidies
+#
+Phase-3: Temperature Check
+Phase-4: Snapshot Vote
+Active
+Passed
+1IP-13 Governance Process Improvements
+1IP-12 Improve Fusion Auction Resolver Competition
+1IP-11 1inch Staking Pods
+1IP-09 Collect 1inch DAO Treasury Revenue in 1INCH Token in Addition to USDC
+1IP-08 Simple diversification mechanism for 1inch DAO Treasury
+1IP-07 Integrate Balancer Boosted Pools in the 1inch Aggregation Protocol
+1IP-05 Add Derivative Aggregation to 1inch Network
+Not-Passed
+1IP-10 1inch DAO SAFE Airdrop Claim
+1IP-06 Donation of 1inch DAO Treasury Funds to support Ukraine’s humanitarian crisis
+1IP-03 VOTE to make $1INCH deflationary!
+1IP-01 1inch Trading Incentives - Discount, Swap Fee & Slippage Subsidies
+
+
+
+
+
+
+
+
+
+---PAGE 19---
+
+
+
+
+
+
+
+
+
+
+
+
+Glossary | 1inch Network
+
+
+
+
+
+
+
+
+
+
+
+
+Skip to main content
+On this page
+1INCH
+#
+An ERC-20 token that is used to participate in the 1inch DAO governance process.
+st1INCH:
+ An ERC-20 which represents 1INCH staked with the 1inch protocol.
+v1INCH:
+ An ERC-20 which represents 1INCH tokens that are currently locked in the vesting contract. These tokens are not yet fully-vested and have reduced voting weight (20%) compared to st1INCH.
+1IP
+#
+1inch Improvement Proposal, 1IP, is the title given to proposals that have reached the Phase 4 Snapshot vote. 
+1RC
+#
+1inch Request for Comment, 1RC, is the title given to formalized proposals. 
+DAO
+#
+A decentralized autonomous organization.
+Delegation
+#
+st1INCH and v1INCH holders can delegate their voting rights to any address. Delegation does not lock the tokens, and the delegator has the power to revoke this delegation at any time. Vote delegation is an on-chain event.
+Delegator:
+ The governance token holder that has delegated their voting power to another address.
+Delegatee:
+ The address that has been delegated voting power from any number of delegators.
+Docusaurus
+#
+The tool used to build 1inch DAO’s documentation site. Docusaurus is similar to GitBook, however Docusaurus has an unencumbered free-use MIT license.
+Off-chain
+#
+An event that does not occur on the blockchain. Off-chain events are gasless. 
+On-chain
+#
+An event that is recorded and verified by the blockchain. All on-chain transactions incur fees paid to miners/validators.
+Quorum
+#
+In order for a snapshot vote to pass, it must achieve a quorum of 10 million 1INCH votes. The purpose of the quorum is to ensure adequate voter participation for all proposals passed.
+Snapshot
+#
+Snapshot is the protocol that allows users to vote on proposals in a gasless fashion.
+Staking contract
+#
+The smart-contract that governance participants use to stake their 1INCH.
+Swap Surplus
+#
+The Swap Surplus is generated by swap transactions when the executed price is slightly better than the price quoted.
+Timelock
+#
+All governance actions passed with the voting process will have a time delay of 72 hours before they are incorporated. This applies to funds spent from the DAO Treasury, and any change to the 1inch Protocol’s smart contracts. 
+Voting
+#
+Voting is the formal process of passing or failing 1IPs. Voting is done through Snapshot — gasless off-chain voting using the on-chain balances of st1INCH and v1INCH.
+Voting Period
+#
+All Snapshot votes will have a voting period of seven days for 1inch DAO members to cast their vote.
+1INCH
+1IP
+1RC
+DAO
+Delegation
+Docusaurus
+Off-chain
+On-chain
+Quorum
+Snapshot
+Staking contract
+Swap Surplus
+Timelock
+Voting
+Voting Period
+
+
+
+
+
+
+
+
+
+---PAGE 20---
+
+
+
+
+
+
+
+
+
+
+
+
+Summary | 1inch Network
+
+
+
+
+
+
+
+
+
+
+
+
+Skip to main content
+The RabbitHole is an innovative feature that aims to solve the issue of sandwich attacks for those wallets which don't support the Flashbots option.
+As of 17.10.22, the feature will be implemented only for MetaMask wallets on the Mainnet.
+While some wallets support Flashbots, MetaMask doesn't and, therefore, after creating a transaction and signing it with the private key, it is always sent to the memory pool rather than directly to the validators. In the memory pool, transactions are vulnerable to sandwich attacks.
+So, the 1inch RabbitHole acts as a proxy server and intermediary between MetaMask and Flashbots. This proxy server switches MetaMask from the Mainnet to the ad hoc network RabbitHole, which substitutes the Mainnet as it has the same ID - “1”.
+So, MetaMask signs the transaction and sends it to the blockchain, recognizing the network as the Mainnet. But the transaction is sent via the RabbitHole, which directs it to our node. The node checks the transaction destination and, if it is the 1inch Router, the transaction is sent to Flashbots. If there is another destination, it is sent to the Mainnet
+In the current version of the RabbitHole, the user can’t change the network to the RabbitHole in the dApp and has to do that in MetaMask. There are two reasons for that:
+When calling MetaMask to change the network, the chain ID is used as the function argument. The Ethereum Mainnet and the RabbitHole have the same chain ID = 1. RPC URL is not specified as an argument, so the app cannot change the grid through this call.
+If we create any other chain ID for the RabbitHole, it won’t work. E.g., we will create chain ID 666. The chain ID, along with all callData, is hashed in a cryptographic signature. So, this transaction signed in a MetaMask wallet connected to the network with ID = 666 will be available for execution only in the network with ID = 666. If we try to send this transaction to a validator on the Mainnet, it won’t work. We cannot change this parameter on the go, as it is built into the signature to protect transaction data against manipulations.
+The network change call:
+await
+ 
+window
+.
+ethereum
+.
+request
+(
+{
+ method
+:
+ 
+'wallet_switchEthereumChain'
+,
+ params
+:
+ 
+[
+{
+ chainId
+:
+ 
+'0x61'
+ 
+}
+]
+,
+ 
+// chainId must be in hexadecimal numbers });
+Copy
+We will be able to implement the connection of the RabbitHole network from the dApp if MetaMask enables programmatically setting a custom network with the same chain ID but a different RPC URL. Alternatively, if MetaMask can sign the transaction but not broadcast it, there will be no need for the RabbitHole, as it will be possible to implement the Flashbots option.
+
+
+
+
+
+
+
+
+
+---PAGE 21---
+
+
+
+
+
+
+
+
+
+
+
+
+Flow | 1inch Network
+
+
+
+
+
+
+
+
+
+
+
+
+Skip to main content
+When MetaMask is connected and the network with ID = 1 (Mainnet or RabbitHole) is chosen, the “RabbitHole transaction” option is displayed in the confirmation swap window.
+When the user selects the “RabbitHole transaction,“ an additional pre-selected option called “Rabbit“ appears in the gas settings:
+The price for a gas unit is twice as high as that for the “Aggressive“ option to make sure that the transaction is successful;
+All other gas options are also available.
+When the user hovers over the info icon, the following tooltip is displayed:
+RabbitHole transactions wouldn't appear in the Ethereum mempool. That protects your transaction from sandwich attacks. RabbitHole transactions require higher fees that are paid directly to the mining pool.
+The front-end can distinguish, to which network MetaMask is connected, the Ethereum Mainnet or the RabbitHole, despite they have the same ID:
+At the moment of MetaMask connection, the dApp sends a viewCall request to the node that interacts with the blockchain (this request only gets information from the blockchain, without making any changes) at the address 
+https://etherscan.io/address/0x0000000000000000000000000000000000000000
+;
+request
+Depending on the response, the front-end detects, which network is connected. If the RabbitHole is connected, the response is '0xeeeeeeee';
+Every 10 seconds, the front-end sends a viewCall request in the background to check if the network hasn’t changed;
+If the network is detected as “RabbitHole,“ the title is displayed in the network selector instead of Ethereum Mainnet but the icon remains the same as for Ethereum;
+
+
+
+
+
+
+
+
+
+---PAGE 22---
+
+
+
+
+
+
+
+
+
+
+
+
+Switching between networks | 1inch Network
+
+
+
+
+
+
+
+
+
+
+
+
+Skip to main content
+On this page
+When a user selects the RabbitHole option and MetaMask is connected, upon clicking the “Confirm Swap“ button, a pop-up appears with instructions on how to switch between networks. A switch is only possible from MetaMask, but not from the dApp.
+Steps that users have to complete to change the network to RabbitHole:
+#
+Open MetaMask in the browser panel;
+Click the account and choose “Settings“ from the drop-down menu;
+Select the “Network“ option;
+Click the “Add Network“ button;
+Use following parameters:
+Network name: RabbitHole
+New RPC URL: 
+https://wormhole.1inch.io/1
+Chain ID: 1
+Currency symbol: ETH
+Block explorer URL: 
+https://etherscan.io
+Steps that users have to complete to change the network to RabbitHole:
+
+
+
+
+
+
+
+
+
+---PAGE 23---
+
+
+
+
+
+
+
+
+
+
+
+
+How to become a resolver | 1inch Network
+
+
+
+
+
+
+
+
+
+
+
+
+Skip to main content
+On this page
+To fill an order, a resolver should be whitelisted and have enough balance to pay the order fee. So below are the overview of steps to do to start resolving:
+Stake enough 1inch
+ to have enough unicorn power to be in top-5 registered resolvers list;
+Register as a resolver
+ (in whitelist and delegation) and set worker address
+Deposit 1inch
+ to FeeBank to cover resolving fees
+Resolve swaps
+Staking
+#
+Staking and unicorn power
+#
+The whitelisted top-5 stakers are determined by the unicorn power. Stakers can lock 1inch tokens in the staking contract to get st1inch tokens. The lock period is between 1 month and 2 years. st1inch tokens grants a staker “unicorn power.” The longer the locking period the more “unicorn power” a resolver gets. However, the increase in power is not linear:
+2-years lock will give the staker 1 “unicorn power” for each 1inch
+1.5-years lock will give the staker 0.47 “unicorn power” for each 1inch
+1-years lock will give the staker 0.22 “unicorn power” for each 1inch
+0.5-year lock will give the staker 0.1 “unicorn power” for each 1inch
+Expired lock will give the staker only 0.05 “unicorn power” for each 1inch
+Delegation
+#
+To help overcome the entry barrier to get into the whitelist a resolver can engage 1inch stakers to delegate their “unicorn power” to him.
+When a staker delegates his “unicorn power” to a resolver, his power is added to the resolver’s “unicorn power” and helps him to enter and remain in the whitelist. Delegated “unicorn power” is decreased over time with a lock period in the same manner as a resolver’s “unicorn power”.
+A staker can delegate all its power to a single resolver at one moment of time.
+Farmings
+#
+To incentivize stakers to delegate their unicorn power Fusion infrastructure creates a default farm for each resolver and any staker delegated his “unicorn power” to a resolver is automatically joined the farm. The resolver who owns the farm may provide rewards for joined delegates which are distributed to them proportionally to the delegated “unicorn power” and time spent delegating.
+Register as a resolver
+#
+It is not enough to have sufficient “unicorn power” but a Resolver should also be enlisted as a resolver which involves the following actions:
+complete resolver verification process
+register a delegation pod
+register for whitelisting
+Optionally, a resolver may define the default farm that a delegating staker will automatically join after delegation.
+If a resolver wants to fill orders from another address then that is whitelisted then he should define a worker address for this purpose. Otherwise, if a resolver wants to fill orders from its own address he should register his own address as a worker.
+The whitelist contains top-5 resolvers by unicorn power. The position in the list defines the access priority for resolving. The Dutch auction duration is split equally into 6 intervals.
+For example, if Dutch auction is lasted 6 minutes, then 1st minute the top-1 resolver is allowed to fill the order, on the 2nd minute top-1 and top-2 resolvers are allowed to fill the order and so on. On the 5th minute all the resolvers from the whitelist are allowed to fill the order. On the 5th minute the order becomes public and all the resolvers despite of the whitelist are allowed to fill it.
+Below is an example of 7 minutes long auction
+Fee bank
+#
+For each order filled, a resolver should pay a fee. This fee is automatically subtracted from the resolver’s account at the fee bank. The order fill will be reverted if there is an insufficient account balance at the fee bank. So a resolver should deposit enough 1inch tokens to fill orders.
+If a worker is defined for filling orders then a deposit should be made to this worker account at the FeeBank.
+Resolving
+#
+If all the previously described requirements are met and steps are done, then a resolver may start filling orders by calling resolve method of the settlement contract. If a resolver wants to fill several orders in one transaction then he should add taker’s interactions with chain order fill in it. See limit orders documentation for details.
+Staking
+Staking and unicorn power
+Delegation
+Farmings
+Register as a resolver
+Fee bank
+Resolving
+
+
+
+
+
+
+
+
+
+---PAGE 24---
+
+
+
+
+
+
+
+
+
+
+
+
+Resolver verification | 1inch Network
+
+
+
+
+
+
+
+
+
+
+
+
+Skip to main content
+Prior to registering as a resolver, each resolver is requested pass a verification procedure. 
+The general purpose of the verification is to ensure a safe and transparent environment within 1inch Network. Verification ensures that each resolver is a safe actor within 1inch Network. It increases user confidence and trust. Verification is also required for the resolver to receive respective rewards.
+Essentially, verification is an identifying KYC (know-your-client)/KYB (know-your-business process) questionnaire accessible directly at: 
+1inchfoundation.synaps.me
+. The process is separate for individuals and entities, but in both cases it is rather straightforward. It includes several questions and a requirement to upload basic identifying documents.
+
+
+
+
+
+
+
+
+
+---PAGE 25---
+
+
+
+
+
+
+
+
+
+
+
+
+Resolver’s setup script example | 1inch Network
+
+
+
+
+
+
+
+
+
+
+
+
+Skip to main content
+On this page
+Below is the script which executes the following steps to become a resolver
+Approves staking 1inch for 1inch contract
+Stakes 1inch to get unicorn power
+Adds a delegation pod to enable power delegation
+Registers self to be a resolver
+Changes the default farm to a new farm (optional, default can be used)
+Delegates available unicorn power to self
+Registers a resolver at the whitelist
+Sets up a worker to settle fusion orders
+Setup script example
+#
+const
+ 
+{
+ ether
+,
+ time 
+}
+ 
+=
+ 
+require
+(
+'@1inch/solidity-utils'
+)
+;
+const
+ 
+{
+ ethers 
+}
+ 
+=
+ 
+require
+(
+'hardhat'
+)
+;
+
+
+// Setup envirement
+const
+ inch 
+=
+ 
+await
+ ethers
+.
+getContractAt
+(
+'IERC20'
+,
+ 
+'0x111111111117dc0aa78b770fa6a738034120c302'
+)
+;
+const
+ st1inch 
+=
+ 
+await
+ ethers
+.
+getContractAt
+(
+'IERC20'
+,
+ 
+'0x9a0c8ff858d273f57072d714bca7411d717501d7'
+)
+;
+const
+ powerPod 
+=
+ 
+await
+ ethers
+.
+getContractAt
+(
+'IERC20'
+,
+ 
+'0xaccfac2339e16dc80c50d2fa81b5c2b049b4f947'
+)
+;
+const
+ whitelist 
+=
+ 
+await
+ ethers
+.
+getContractAt
+(
+'WhitelistRegistry'
+,
+ 
+'0xcb8308fcB7BC2f84ed1bEa2C016991D34de5cc77'
+)
+;
+
+
+const
+ stakeAmount 
+=
+ 
+ether
+(
+'1000000'
+)
+;
+const
+ lockTime 
+=
+ time
+.
+duration
+.
+years
+(
+'2'
+)
+;
+const
+ myShareToken 
+=
+ 
+{
+    name
+:
+ 
+'MyShareTokenName'
+,
+    symbol
+:
+ 
+'MST'
+,
+}
+;
+const
+ worker 
+=
+ 
+'...'
+;
+ 
+// Address of wallet which send transaction
+const
+ 
+[
+resolver
+]
+ 
+=
+ 
+await
+ ethers
+.
+getSigners
+(
+)
+;
+
+
+// Ethers setup script
+
+
+// approve 1inch staking
+await
+ 
+(
+await
+ inch
+.
+connect
+(
+resolver
+)
+.
+approve
+(
+st1inch
+.
+address
+,
+ stakeAmount
+)
+)
+;
+// stake 1inch token
+await
+ 
+(
+await
+ st1inch
+.
+connect
+(
+resolver
+)
+.
+deposit
+(
+stakeAmount
+,
+ lockTime
+)
+)
+.
+wait
+(
+)
+;
+// add delegation pod to
+// 1. make it possible for any user to delegate staking power to
+// the resolver's account
+// 2. make it possible for a resolver to allocate its staking power for itself
+await
+ 
+(
+await
+ st1inch
+.
+connect
+(
+resolver
+)
+.
+addPod
+(
+powerPod
+.
+address
+)
+)
+.
+wait
+(
+)
+;
+
+
+// register resolver's delegation token to count stakers' shares and rewards
+await
+ 
+(
+    
+await
+ powerPod
+        
+.
+connect
+(
+resolver
+)
+        
+.
+functions
+[
+'register(string,string)'
+]
+(
+            myShareToken
+.
+name
+,
+            myShareToken
+.
+symbol
+,
+        
+)
+)
+.
+wait
+(
+)
+;
+
+
+// Set default rewards farm
+// Optional, needed to incentivize staker for delegation
+const
+ shareTokenAddress 
+=
+ 
+await
+ powerPod
+.
+registration
+(
+resolver
+.
+address
+)
+;
+const
+ 
+FarmingPod
+ 
+=
+ 
+await
+ ethers
+.
+getContractFactory
+(
+'FarmingPod'
+)
+;
+const
+ gift 
+=
+ 
+await
+ ethers
+.
+getContractAt
+(
+'IERC20'
+,
+ 
+'...'
+)
+;
+ 
+// Your gift token address
+const
+ farm 
+=
+ 
+await
+ 
+FarmingPod
+.
+deploy
+(
+shareTokenAddress
+.
+address
+,
+ gift
+.
+address
+)
+;
+await
+ 
+(
+await
+ powerPod
+.
+connect
+(
+resolver
+)
+.
+setDefaultFarm
+(
+farm
+.
+address
+)
+)
+.
+wait
+(
+)
+;
+
+
+// Delegate staked power to self
+await
+ 
+(
+await
+ powerPod
+.
+connect
+(
+resolver
+)
+.
+delegate
+(
+resolver
+.
+address
+)
+)
+.
+wait
+(
+)
+;
+
+
+// Whitelist resolver (there should be enough staked power to be in top 5)
+await
+ 
+(
+await
+ whitelist
+.
+connect
+(
+resolver
+)
+.
+register
+(
+)
+)
+.
+wait
+(
+)
+;
+
+
+// Add worker address from which order settlement will be executed
+await
+ 
+(
+await
+ whitelist
+.
+connect
+(
+resolver
+)
+.
+promote
+(
+1
+,
+ worker
+)
+)
+.
+wait
+(
+)
+;
+Copy
+Setup script example
+
+
+
+
+
+
+
+
+
+---PAGE 26---
+
+
+
+
+
+
+
+
+
+
+
+
+Contract interaction | 1inch Network
+
+
+
+
+
+
+
+
+
+
+
+
+Skip to main content
+On this page
+1. Stake 1inch
+#
+Repository
+limit-order-settlement
+Contract
+st1inch.sol
+Contract address
+0x9A0C8Ff858d273f57072D714bca7411D717501D7
+Methods
+deposit(uint256 amount, uint256 duration)
+depositWithPermit(uint256 amount, uint256 duration, bytes calldata permit)
+depositFor(address account, uint256 amount, uint256 duration)
+depositForWithPermit(address account, uint256 amount, uint256 duration, bytes calldata permit)
+Description
+Stakes 1inch to get staking power according to the lock time
+//Deposits 100 1inch with 1 day lock
+await
+ st1inch
+.
+deposit
+(
+ether
+(
+'100'
+)
+,
+ time
+.
+duration
+.
+days
+(
+'1'
+)
+)
+;
+Copy
+2. Register as a Resolver
+#
+2.1  Register delegation pod
+#
+Repository
+limit-order-settlement
+Contract
+PowerPod.sol
+Contract address
+0x9A0C8Ff858d273f57072D714bca7411D717501D7
+Methods
+addPod(address pod)
+Description
+Register pod usage for the tx sender. Needed for
+Resolvers to enable resolver’s and delegated staking power usage for whitelisting
+Stakers to enable staking power delegation
+// register `delegation` pod usage a `resolver`
+await
+ st1inch
+.
+connect
+(
+resolver
+)
+.
+addPod
+(
+delegation
+.
+address
+)
+;
+Copy
+2.2. Register delegation share token
+#
+Repository
+limit-order-settlement
+Contract
+st1inch.sol
+Contract address
+0xAccfAc2339e16DC80c50d2fa81b5c2B049B4f947
+Methods
+register(string memory name, string memory symbol, uint256 maxUserFarms)
+Description
+Creates a resolvers share token to count delegated staked power shares and accrue rewards
+// Register resolver's token with name 'resolver token share' and symbol 'RTS'
+// allowing the maximum 3 farms running
+await
+ delegation
+.
+register
+(
+'resolver token share'
+,
+ 
+'RTS'
+)
+;
+Copy
+2.3. Set default farm
+#
+Repository
+limit-order-settlement
+Contract
+PowerPod.sol
+Contract address
+0xAccfAc2339e16DC80c50d2fa81b5c2B049B4f947
+Methods
+setDefaultFarm(address farm)
+Description
+Setups the default farm to which all users delegating to this resolver are automatically joined
+// Setups the default farm to which all users delegating to this resolver
+// are automatically joined
+await
+ delegation
+.
+connect
+(
+resolver
+)
+.
+setDefaultFarm
+(
+farm
+.
+address
+)
+;
+Copy
+2.4. Delegate resolver’s staking power to self
+#
+Repository
+limit-order-settlement
+Contract
+PowerPod.sol
+Contract address
+0xDAf782667d98d5069eE7ba139932945C4D08fDE9
+Methods
+delegate(address delegatee)
+Description
+delegate(address delegatee)
+// Delegates all staking power to self
+await
+ delegation
+.
+connect
+(
+resolver
+)
+.
+delegate
+(
+resolver
+.
+address
+)
+;
+Copy
+2.5. Whitelist resolver
+#
+Repository
+limit-order-settlement
+Contract
+WhitelistRegistry.sol
+Contract address
+0xcb8308fcB7BC2f84ed1bEa2C016991D34de5cc77
+Methods
+register()
+Description
+Checks if sender is eligible to be whitelisted and put it into the whitelist sorted by staking power descending
+// Try to put the sender to the whitelist
+await
+ whitelist
+.
+connect
+(
+resolver
+)
+.
+register
+(
+)
+;
+Copy
+3. FeeBank
+#
+Repository
+limit-order-settlement
+Contract
+FeeBank.sol
+Contract address
+0xa0844e046a5B7Db55Bb8DcdFfbF0bBF9c6dc6546
+Methods
+deposit(uint256 amount)
+depositFor(address account, uint256 amount)
+depositWithPermit(uint256 amount, bytes calldata permit)
+depositForWithPermit
+Description
+Deposits 1inch for fee deduction when filling orders
+// Deposit fees to fee bank
+await
+ feeBank
+.
+connect
+(
+resolver
+)
+.
+deposit
+(
+amount
+)
+Copy
+4. Resolving
+#
+struct Order {
+        uint256 salt;
+        address makerAsset;
+        address takerAsset;
+        address maker;
+        address receiver;
+        address allowedSender;  // equals to Zero address on public orders
+        uint256 makingAmount;
+        uint256 takingAmount;
+        uint256 offsets;
+        // bytes makerAssetData;
+        // bytes takerAssetData;
+        // bytes getMakingAmount; // this.staticcall(abi.encodePacked(bytes, swapTakerAmount)) => (swapMakerAmount)
+        // bytes getTakingAmount; // this.staticcall(abi.encodePacked(bytes, swapMakerAmount)) => (swapTakerAmount)
+        // bytes predicate;       // this.staticcall(bytes) => (bool)
+        // bytes permit;          // On first fill: permit.1.call(abi.encodePacked(permit.selector, permit.2))
+        // bytes preInteraction;
+        // bytes postInteraction;
+        bytes interactions; // concat(makerAssetData, takerAssetData, getMakingAmount, getTakingAmount, predicate, permit, preIntercation, postInteraction)
+    }
+Copy
+Repository
+limit-order-settlement
+Contract
+Settlement.sol
+Contract address
+0xA88800CD213dA5Ae406ce248380802BD53b47647
+Methods
+.settleOrders(bytes calldata data)
+Description
+Settles an order
+1. Stake 1inch
+2. Register as a Resolver
+3. FeeBank
+4. Resolving
+
+
+
+
+
+
+
+
+
+---PAGE 27---
+
+
+
+
+
+
+
+
+
+
+
+
+Wallet auto-connect | 1inch Network
+
+
+
+
+
+
+
+
+
+
+
+
+Skip to main content
+On this page
+How to implement the wallet auto-connect
+#
+Web3 browser in 1inch Wallet injects JavaScript code/objects when opening a webpage.
+So first it is necessary to find out if the provider has been injected:
+export
+ 
+function
+ 
+isOneInchWalletProviderInjected
+(
+)
+:
+ boolean 
+{
+        
+return
+ 
+Boolean
+(
+ethereum
+?.
+isOneInchIOSWallet 
+||
+ ethereum
+?.
+isOneInchAndroidWallet
+)
+;
+}
+Copy
+The next step is to retrieve the net/address, thus it would be classified as a connection.
+// Retrieving accounts: eth_requestAccounts returns the current one, it gives an array containing single address
+const
+ accounts 
+=
+ 
+await
+ ethereum
+.
+request
+(
+{
+ method
+:
+ 
+'eth_requestAccounts'
+ 
+}
+)
+;
+Copy
+// returns id of the network in hex-format
+const
+ currentChain 
+=
+ 
+await
+ ethereum
+.
+request
+(
+{
+ method
+:
+ 
+'eth_chainId'
+ 
+}
+)
+;
+Copy
+How to implement the wallet auto-connect
+
+
+
+
+
+
+
+
+
+---PAGE 28---
+
+
+
+
+
+
+
+
+
+
+
+
+Quick start | 1inch Network
+
+
+
+
+
+
+
+
+
+
+
+
+Skip to main content
+On this page
+tip
+The guide below will provide an example of a swap on the 
+Binance Smart Chain network
+, but you can do the same on any network supported by 
+1inch Aggregation Protocol
+Let's assume that you want to exchange 
+0.1
+ 
+1INCH
+ for 
+DAI
+ at the best exchange rate on the market.
+const
+ swapParams 
+=
+ 
+{
+    fromTokenAddress
+:
+ 
+'0x111111111117dc0aa78b770fa6a738034120c302'
+,
+ 
+// 1INCH
+    toTokenAddress
+:
+ 
+'0x1af3f329e8be154074d8769d1ffa4ee058b1dbc3'
+,
+ 
+// DAI
+    amount
+:
+ 
+'100000000000000000'
+,
+    fromAddress
+:
+ 
+'YOUR_WALLET_ADDRESS'
+,
+    slippage
+:
+ 
+1
+,
+    disableEstimate
+:
+ 
+false
+,
+    allowPartialFill
+:
+ 
+false
+,
+}
+;
+Copy
+info
+amount: '100000000000000000'
+ - we set this value, because 
+1INCH
+ token has 
+decimals = 18
+You can read more about this 
+here
+.
+info
+About 
+slippage
+, 
+disableEstimate
+, 
+allowPartialFill
+ and other params, please, read 
+Swap params
+Check allowance
+#
+Before making an asset exchange, we need to make sure that 1inch router has permission to exchange assets with your wallet.
+This is part of the 
+ERC-20
+ standard, you can read more about this 
+here
+.
+const
+ 
+Web3
+ 
+=
+ 
+require
+(
+'web3'
+)
+;
+const
+ fetch 
+=
+ 
+require
+(
+'node-fetch'
+)
+;
+const
+ yesno 
+=
+ 
+require
+(
+'yesno'
+)
+;
+
+
+const
+ chainId 
+=
+ 
+56
+;
+const
+ web3RpcUrl 
+=
+ 
+'https://bsc-dataseed.binance.org'
+;
+const
+ walletAddress 
+=
+ 
+'0x...xxx'
+;
+ 
+// Set your wallet address
+const
+ privateKey 
+=
+ 
+'0x...xxx'
+;
+ 
+// Set private key of your wallet. Be careful! Don't share this key to anyone!
+
+
+const
+ swapParams 
+=
+ 
+{
+    fromTokenAddress
+:
+ 
+'0x111111111117dc0aa78b770fa6a738034120c302'
+,
+ 
+// 1INCH
+    toTokenAddress
+:
+ 
+'0x1af3f329e8be154074d8769d1ffa4ee058b1dbc3'
+,
+ 
+// DAI
+    amount
+:
+ 
+'100000000000000000'
+,
+    fromAddress
+:
+ walletAddress
+,
+    slippage
+:
+ 
+1
+,
+    disableEstimate
+:
+ 
+false
+,
+    allowPartialFill
+:
+ 
+false
+,
+}
+;
+
+
+const
+ broadcastApiUrl 
+=
+ 
+'https://tx-gateway.1inch.io/v1.1/'
+ 
++
+ chainId 
++
+ 
+'/broadcast'
+;
+const
+ apiBaseUrl 
+=
+ 
+'https://api.1inch.io/v5.0/'
+ 
++
+ chainId
+;
+const
+ web3 
+=
+ 
+new
+ 
+Web3
+(
+web3RpcUrl
+)
+;
+
+
+function
+ 
+apiRequestUrl
+(
+methodName
+,
+ queryParams
+)
+ 
+{
+    
+return
+ apiBaseUrl 
++
+ methodName 
++
+ 
+'?'
+ 
++
+ 
+(
+new
+ 
+URLSearchParams
+(
+queryParams
+)
+)
+.
+toString
+(
+)
+;
+}
+
+
+function
+ 
+checkAllowance
+(
+tokenAddress
+,
+ walletAddress
+)
+ 
+{
+    
+return
+ 
+fetch
+(
+apiRequestUrl
+(
+'/approve/allowance'
+,
+ 
+{
+tokenAddress
+,
+ walletAddress
+}
+)
+)
+        
+.
+then
+(
+res
+ 
+=>
+ res
+.
+json
+(
+)
+)
+        
+.
+then
+(
+res
+ 
+=>
+ res
+.
+allowance
+)
+;
+}
+
+
+const
+ allowance 
+=
+ 
+await
+ 
+checkAllowance
+(
+swapParams
+.
+fromTokenAddress
+,
+ walletAddress
+)
+;
+
+
+console
+.
+log
+(
+'Allowance: '
+,
+ allowance
+)
+;
+Copy
+If you have not previously exchanged this asset using 
+1inch Aggregation Protocol
+, then the following value will be displayed in the console:
+
+> Allowance: 0
+This means that at the moment 
+1inch router
+ is allowed to exchange 
+0
+ tokens for your wallet.
+Allow exchange with 1inch router
+#
+Ok, to allow 
+1inch router
+ to exchange your tokens, we must create a transaction, indicating in it that the 
+1inch router
+ is allowed to exchange a specified number of tokens:
+caution
+Be careful!
+ Creating a transaction requires payment of a fee, the cost of the fee will be spent from your account.
+const
+ 
+Web3
+ 
+=
+ 
+require
+(
+'web3'
+)
+;
+const
+ fetch 
+=
+ 
+require
+(
+'node-fetch'
+)
+;
+const
+ yesno 
+=
+ 
+require
+(
+'yesno'
+)
+;
+
+
+const
+ chainId 
+=
+ 
+56
+;
+const
+ web3RpcUrl 
+=
+ 
+'https://bsc-dataseed.binance.org'
+;
+const
+ walletAddress 
+=
+ 
+'0x...xxx'
+;
+ 
+// Set your wallet address
+const
+ privateKey 
+=
+ 
+'0x...xxx'
+;
+ 
+// Set private key of your wallet. Be careful! Don't share this key to anyone!
+
+
+const
+ swapParams 
+=
+ 
+{
+    fromTokenAddress
+:
+ 
+'0x111111111117dc0aa78b770fa6a738034120c302'
+,
+ 
+// 1INCH
+    toTokenAddress
+:
+ 
+'0x1af3f329e8be154074d8769d1ffa4ee058b1dbc3'
+,
+ 
+// DAI
+    amount
+:
+ 
+'100000000000000000'
+,
+    fromAddress
+:
+ walletAddress
+,
+    slippage
+:
+ 
+1
+,
+    disableEstimate
+:
+ 
+false
+,
+    allowPartialFill
+:
+ 
+false
+,
+}
+;
+
+
+const
+ broadcastApiUrl 
+=
+ 
+'https://tx-gateway.1inch.io/v1.1/'
+ 
++
+ chainId 
++
+ 
+'/broadcast'
+;
+const
+ apiBaseUrl 
+=
+ 
+'https://api.1inch.io/v5.0/'
+ 
++
+ chainId
+;
+const
+ web3 
+=
+ 
+new
+ 
+Web3
+(
+web3RpcUrl
+)
+;
+
+
+function
+ 
+apiRequestUrl
+(
+methodName
+,
+ queryParams
+)
+ 
+{
+    
+return
+ apiBaseUrl 
++
+ methodName 
++
+ 
+'?'
+ 
++
+ 
+(
+new
+ 
+URLSearchParams
+(
+queryParams
+)
+)
+.
+toString
+(
+)
+;
+}
+
+
+async
+ 
+function
+ 
+broadCastRawTransaction
+(
+rawTransaction
+)
+ 
+{
+    
+return
+ 
+fetch
+(
+broadcastApiUrl
+,
+ 
+{
+        method
+:
+ 
+'post'
+,
+        body
+:
+ 
+JSON
+.
+stringify
+(
+{
+rawTransaction
+}
+)
+,
+        headers
+:
+ 
+{
+'Content-Type'
+:
+ 
+'application/json'
+}
+    
+}
+)
+        
+.
+then
+(
+res
+ 
+=>
+ res
+.
+json
+(
+)
+)
+        
+.
+then
+(
+res
+ 
+=>
+ 
+{
+            
+return
+ res
+.
+transactionHash
+;
+        
+}
+)
+;
+}
+
+
+async
+ 
+function
+ 
+signAndSendTransaction
+(
+transaction
+)
+ 
+{
+    
+const
+ 
+{
+rawTransaction
+}
+ 
+=
+ 
+await
+ web3
+.
+eth
+.
+accounts
+.
+signTransaction
+(
+transaction
+,
+ privateKey
+)
+;
+
+
+    
+return
+ 
+await
+ 
+broadCastRawTransaction
+(
+rawTransaction
+)
+;
+}
+
+
+async
+ 
+function
+ 
+buildTxForApproveTradeWithRouter
+(
+tokenAddress
+,
+ amount
+)
+ 
+{
+    
+const
+ url 
+=
+ 
+apiRequestUrl
+(
+        
+'/approve/transaction'
+,
+        amount 
+?
+ 
+{
+tokenAddress
+,
+ amount
+}
+ 
+:
+ 
+{
+tokenAddress
+}
+    
+)
+;
+
+
+    
+const
+ transaction 
+=
+ 
+await
+ 
+fetch
+(
+url
+)
+.
+then
+(
+res
+ 
+=>
+ res
+.
+json
+(
+)
+)
+;
+
+
+    
+const
+ gasLimit 
+=
+ 
+await
+ web3
+.
+eth
+.
+estimateGas
+(
+{
+        
+...
+transaction
+,
+        
+from
+:
+ walletAddress
+    
+}
+)
+;
+
+
+    
+return
+ 
+{
+        
+...
+transaction
+,
+        gas
+:
+ gasLimit
+    
+}
+;
+}
+
+
+// First, let's build the body of the transaction
+const
+ transactionForSign 
+=
+ 
+await
+ 
+buildTxForApproveTradeWithRouter
+(
+swapParams
+.
+fromTokenAddress
+)
+;
+console
+.
+log
+(
+'Transaction for approve: '
+,
+ transactionForSign
+)
+;
+
+
+const
+ ok 
+=
+ 
+await
+ 
+yesno
+(
+{
+    question
+:
+ 
+'Do you want to send a transaction to approve trade with 1inch router?'
+}
+)
+;
+
+
+// Before signing a transaction, make sure that all parameters in it are specified correctly
+if
+ 
+(
+!
+ok
+)
+ 
+{
+    
+return
+ 
+false
+;
+}
+
+
+// Send a transaction and get its hash
+const
+ approveTxHash 
+=
+ 
+await
+ 
+signAndSendTransaction
+(
+transactionForSign
+)
+;
+
+
+console
+.
+log
+(
+'Approve tx hash: '
+,
+ approveTxHash
+)
+;
+Copy
+After running this code in the console, you should see something like this:
+> Approve tx hash: 0xb87c133e203fe66b487e27ab0afde71842dc34ab97aca60c147c7662505312a6
+Having a hash of the transaction, you can monitor its execution using the blockchain explorer.
+For the BSC network, we use a bscscan.com:
+
+https://bscscan.com/tx/0xb87c133e203fe66b487e27ab0afde71842dc34ab97aca60c147c7662505312a6
+caution
+Before proceeding, please make sure that the transaction has a status of 
+Success
+!
+Do exchange!
+#
+const
+ 
+Web3
+ 
+=
+ 
+require
+(
+'web3'
+)
+;
+const
+ fetch 
+=
+ 
+require
+(
+'node-fetch'
+)
+;
+const
+ yesno 
+=
+ 
+require
+(
+'yesno'
+)
+;
+
+
+const
+ chainId 
+=
+ 
+56
+;
+const
+ web3RpcUrl 
+=
+ 
+'https://bsc-dataseed.binance.org'
+;
+const
+ walletAddress 
+=
+ 
+'0x...xxx'
+;
+const
+ privateKey 
+=
+ 
+'0x...xxx'
+;
+
+
+const
+ swapParams 
+=
+ 
+{
+    fromTokenAddress
+:
+ 
+'0x111111111117dc0aa78b770fa6a738034120c302'
+,
+ 
+// 1INCH
+    toTokenAddress
+:
+ 
+'0x1af3f329e8be154074d8769d1ffa4ee058b1dbc3'
+,
+ 
+// DAI
+    amount
+:
+ 
+'100000000000000000'
+,
+    fromAddress
+:
+ walletAddress
+,
+    slippage
+:
+ 
+1
+,
+    disableEstimate
+:
+ 
+false
+,
+    allowPartialFill
+:
+ 
+false
+,
+}
+;
+
+
+const
+ broadcastApiUrl 
+=
+ 
+'https://tx-gateway.1inch.io/v1.1/'
+ 
++
+ chainId 
++
+ 
+'/broadcast'
+;
+const
+ apiBaseUrl 
+=
+ 
+'https://api.1inch.io/v5.0/'
+ 
++
+ chainId
+;
+const
+ web3 
+=
+ 
+new
+ 
+Web3
+(
+web3RpcUrl
+)
+;
+
+
+function
+ 
+apiRequestUrl
+(
+methodName
+,
+ queryParams
+)
+ 
+{
+    
+return
+ apiBaseUrl 
++
+ methodName 
++
+ 
+'?'
+ 
++
+ 
+(
+new
+ 
+URLSearchParams
+(
+queryParams
+)
+)
+.
+toString
+(
+)
+;
+}
+
+
+async
+ 
+function
+ 
+broadCastRawTransaction
+(
+rawTransaction
+)
+ 
+{
+    
+return
+ 
+fetch
+(
+broadcastApiUrl
+,
+ 
+{
+        method
+:
+ 
+'post'
+,
+        body
+:
+ 
+JSON
+.
+stringify
+(
+{
+rawTransaction
+}
+)
+,
+        headers
+:
+ 
+{
+'Content-Type'
+:
+ 
+'application/json'
+}
+    
+}
+)
+    
+.
+then
+(
+res
+ 
+=>
+ res
+.
+json
+(
+)
+)
+    
+.
+then
+(
+res
+ 
+=>
+ 
+{
+        
+return
+ res
+.
+transactionHash
+;
+    
+}
+)
+;
+}
+
+
+async
+ 
+function
+ 
+signAndSendTransaction
+(
+transaction
+)
+ 
+{
+    
+const
+ 
+{
+rawTransaction
+}
+ 
+=
+ 
+await
+ web3
+.
+eth
+.
+accounts
+.
+signTransaction
+(
+transaction
+,
+ privateKey
+)
+;
+
+
+    
+return
+ 
+await
+ 
+broadCastRawTransaction
+(
+rawTransaction
+)
+;
+}
+
+
+async
+ 
+function
+ 
+buildTxForSwap
+(
+swapParams
+)
+ 
+{
+    
+const
+ url 
+=
+ 
+apiRequestUrl
+(
+'/swap'
+,
+ swapParams
+)
+;
+
+
+    
+return
+ 
+fetch
+(
+url
+)
+.
+then
+(
+res
+ 
+=>
+ res
+.
+json
+(
+)
+)
+.
+then
+(
+res
+ 
+=>
+ res
+.
+tx
+)
+;
+}
+
+
+// First, let's build the body of the transaction
+const
+ swapTransaction 
+=
+ 
+await
+ 
+buildTxForSwap
+(
+swapParams
+)
+;
+console
+.
+log
+(
+'Transaction for swap: '
+,
+ swapTransaction
+)
+;
+
+
+const
+ ok 
+=
+ 
+await
+ 
+yesno
+(
+{
+    question
+:
+ 
+'Do you want to send a transaction to exchange with 1inch router?'
+}
+)
+;
+
+
+// Before signing a transaction, make sure that all parameters in it are specified correctly
+if
+ 
+(
+!
+ok
+)
+ 
+{
+    
+return
+ 
+false
+;
+}
+
+
+// Send a transaction and get its hash
+const
+ swapTxHash 
+=
+ 
+await
+ 
+signAndSendTransaction
+(
+swapTransaction
+)
+;
+console
+.
+log
+(
+'Swap transaction hash: '
+,
+ swapTxHash
+)
+;
+
+
+Copy
+After running this code in the console, you should see something like this:
+> Approve tx hash: 0xe591e17cc2b33e6a244fb2a98deb83b4659f94cf867ef7730b614d1feaa7cf9d
+Let's check the result of the transaction on the explorer:
+
+https://bscscan.com/tx/0xe591e17cc2b33e6a244fb2a98deb83b4659f94cf867ef7730b614d1feaa7cf9d
+Check allowance
+Allow exchange with 1inch router
+Do exchange!
+
+
+
+
+
+
+
+
+
